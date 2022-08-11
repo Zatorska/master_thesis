@@ -1,0 +1,12 @@
+# Mac related things
+.DS_Store
+
+# LaTeX related things
+*.toc
+*.synctex.gz
+*.lot
+*.log
+*.lof
+*.blg
+*.bbl
+*.aux
