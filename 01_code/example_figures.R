@@ -16,7 +16,7 @@ dataTS <- xts(
   x = dataOrig$TotalLoad_Actual_MW[ind],
   order.by = ymd_hms(dataOrig$Timestamp[ind]))
 
-png(filename = "./02_paper/out_figures/fig1.png")
-plot(dataTS)
+plot(dataTS, col = "maroon")
+dev.copy(device = png, "./02_paper/out_figures/fig1.png", width = 800, height = 480)
 dev.off()
 
