@@ -157,6 +157,38 @@ Warszawa 2023
 
 % --- chapter ---------------------------------------------------------
 \cleardoublepage
+\section{Plan pracy i pracy magisterskiej}
+
+\subsection{Plan pracy / TODO}
+
+\begin{enumerate}[noitemsep]
+\item Zapoznanie się z kodem i \LaTeX'em
+\item Zapoznanie się z danymi --- analiza eksploracyjna danych (może jakieś tabele lub wykresy)
+\item Czyszczenie danych (kody krajów zamienić na nazwy krajów, imputacje, agregacje) --- tabele i wykresy, jakieś uwagi dotyczące sezoności
+\item Podstawowy model: na rok 2020 tworzymy prognozę z lat poprzednich z wykorzystaniem jakiegoś modelu prognostycznego (TBATS, sieci neuronowe LSTM, SARIMA, model liniowego trendu z sezonowością) i ta prognoza jest jest bazą do porównania z rzeczywiście obserwowanymi danymi; tworzy stosunek rzeczywiście obserwowanych danych do stworzonej bazy z prognozy; taki Miernik jest tworzony dla każdego kraju Unii Europejskiej. wykresy i tabele
+\item na podstawie uzyskanych oszacowań porównanie jakości modeli prognostycznych --- wykresy i tabele
+\item pisanie pracy
+\end{enumerate}
+
+\subsection{Plan pracy magisterskiej}
+
+\begin{enumerate}[noitemsep]
+\item Wprowadzenie (tutaj wprowadzenie i kontekst literaturowy)
+\item Dane i metody
+\begin{enumerate}[noitemsep]
+\item Wykorzystane dane (opis danych surowych, źródło, przetworzenie danych / czyszczenie danych / opis)
+\item Wykorzystane modele (opis wykorzystanych modeli, wykorzystane mierniki błędów)
+\item Plan badania (co my właściwie liczymy i dlaczego / opisać tworzenie profili dla krajów)
+\end{enumerate}
+\item Uzyskane wyniki i dyskusja (pokazujemy wyniki i omawiamy je)
+\item Zakończenie
+\end{enumerate}
+
+
+
+% --- chapter ---------------------------------------------------------
+\clearpage
+
 \section{Wprowdzenie}
 
 Przykładowa tabela wygenerowana bezpośrednio w R. Tutaj przykładowe cytowanie, \citep{bahmanyar2020impact}.
