@@ -132,7 +132,7 @@ Nr albumu: 115953
 \begin{minipage}{12cm}
 \centering
 \Large
-\textbf{Zużycie energii elektrycznej\\w pandemii COVID-19}
+\textbf{Wpływ pandemii COVID-19\\na zużycie energii elektrycznej\\w krajach Unii Europejskiej}
 \end{minipage}
 
 \vspace*{2cm}
@@ -155,447 +155,286 @@ Warszawa 2023
 \cleardoublepage
 \tableofcontents
 
-% --- chapter ---------------------------------------------------------
-\cleardoublepage
-\section{Plan pracy i pracy magisterskiej}
-
-\subsection{Plan pracy / TODO}
-
-\begin{enumerate}[noitemsep]
-\item Zapoznanie się z kodem i \LaTeX'em
-\item Zapoznanie się z danymi --- analiza eksploracyjna danych (może jakieś tabele lub wykresy)
-\item Czyszczenie danych (kody krajów zamienić na nazwy krajów, imputacje, agregacje) --- tabele i wykresy, jakieś uwagi dotyczące sezoności
-\item Podstawowy model: na rok 2020 tworzymy prognozę z lat poprzednich z wykorzystaniem jakiegoś modelu prognostycznego (TBATS, sieci neuronowe LSTM, SARIMA, model liniowego trendu z sezonowością) i ta prognoza jest jest bazą do porównania z rzeczywiście obserwowanymi danymi; tworzy stosunek rzeczywiście obserwowanych danych do stworzonej bazy z prognozy; taki Miernik jest tworzony dla każdego kraju Unii Europejskiej. wykresy i tabele
-\item na podstawie uzyskanych oszacowań porównanie jakości modeli prognostycznych --- wykresy i tabele
-\item pisanie pracy
-\end{enumerate}
-
-\subsection{Plan pracy magisterskiej}
-
-\begin{enumerate}[noitemsep]
-\item Wprowadzenie (tutaj wprowadzenie i kontekst literaturowy)
-\item Dane i metody
-\begin{enumerate}[noitemsep]
-\item Wykorzystane dane (opis danych surowych, źródło, przetworzenie danych / czyszczenie danych / opis)
-\item Wykorzystane modele (opis wykorzystanych modeli, wykorzystane mierniki błędów)
-\item Plan badania (co my właściwie liczymy i dlaczego / opisać tworzenie profili dla krajów)
-\end{enumerate}
-\item Uzyskane wyniki i dyskusja (pokazujemy wyniki i omawiamy je)
-\item Zakończenie
-\end{enumerate}
-
-
 
 % --- chapter ---------------------------------------------------------
 \clearpage
 
 \section{Wprowdzenie}
 
-Przykładowa tabela wygenerowana bezpośrednio w R. Tutaj przykładowe cytowanie, \citep{bahmanyar2020impact}.
+\subsection{Rynek energetyczny w krajach Unii Europejskiej}
+\subsubsection{Charakterystyka rynku energetycznego w Unii Europejskiej}
 
-\input{./out_tables/tab1.tex}
+Unia Europejska dysponuje ograniczonymi zasobami surowców energetycznych. Dlatego import energii do UE stanowi konieczność – tym bardziej, że z importu Unia Europejska pokrywa więcej niż 50\% własnego zapotrzebowania na energię. Wszystkie kraje unijne są importerami netto energii. 
 
-Wstawienie przykładowego wykresu wygenerowanego z R. 
+W 2019 roku największy udział w zużyciu energii brutto w UE miały ropa naftowa i produkty ropopochodne (34,5\%), a następnie gaz ziemny (23,1\%), energia ze źródeł odnawialnych (15,8\%), energia jądrowa (13,5\%) oraz stałe paliwa kopalne (11,6\%). Największy udział stałych paliw kopalnych w krajowym zużyciu brutto występował w Polsce (46,1\%), a najmniejszy (i to mniej niż 2\%) – w Luksemburgu, na Łotwie, Cyprze, Estonii i Malcie.
+
+W omawianym roku największy udział ropy naftowej i produktów ropopochodnych w krajowym zużyciu energii brutto odnotowano na Cyprze (89,6\%) oraz na Malcie (53,7\%), co wynikało z usytuowania geograficznego tych wysp, a także w Luksemburgu (64,7\%) – w rezultacie „turystyki paliwowej”, spowodowanej relatywnie niskimi cenami paliw. Udział gazu ziemnego w krajach unijnych wahał się od 39,7\% w Niderlandach do blisko 2\% w Szwecji i na Cyprze. Energia odnawialna w Szwecji oraz na Łotwie stanowiła odpowiednio 39,6\% i 38,9\% łącznej energii, a najgorsze rezultaty w tym zakresie dotyczyły Malty (5,4\%), Niderlandów (6,0\%) i Luksemburga (6,5\%). 
+
+W ramach udziału energii jądrowej w krajowym zużyciu energii brutto na czele uplasowała się Francja z (42,3\%), a w dalszej kolejności – Szwecja (32,8\%), Słowacja (22,1\%), Bułgaria (21,9\%) i Słowenia (19,9\%). W 2019 r. cała UE wyprodukowała około 39\% własnej energii, natomiast 61\% energii pozyskała z importu – dla porównania, w 1990 roku import energii do UE stanowił 50,1\%.
+
+Zapotrzebowanie na energię w 2019 roku w całej UE było najwyższe w zakresie ropy naftowej i produktów ropopochodnych – wynosiło 545,6 Mtoe, z czego 96,8\% pochodziło z importu, natomiast w zakresie gazu ziemnego popyt wyniósł 335,9 Mtoe, z czego 89,7\% pokrywał import. Zależność od dostaw zewnętrznych najczęściej dotyczyła ropy naftowej, gazu ziemnego oraz paliw stałych. Wiodącym importerem tych paliw do UE była – jeszcze w omawianym czasie, czyli w 2019 roku – Rosja, z której pochodziło 26,9\% importowanej ropy naftowej (wykres~\ref{fig:x1}), 41,1\% gazu ziemnego (wykres 2) i 46,7\% paliw stałych (wykres 3). Zależność ta stanowiła zagrożenie dla bezpieczeństwa energetycznego UE. 
+
+Na wykresie~\ref{fig:x1} ukazano źródła importu ropy naftowej do UE w 2019 roku.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./figure_1}
+  \caption[Źródła importu ropy naftowej do UE w 2019 roku (w \%)]{Źródła importu ropy naftowej do UE w 2019 roku (w \%). Źródło: \cite{pangsykania2022}}
+  \label{fig:x1}
+\end{figure}
+
+Jak zaprezentowano na wykresie~\ref{fig:x1}, Rosja była najistotniejszym dostawcą ropy naftowej do UE w 2019 roku. Stany Zjednoczone zaspokajały blisko 18\% unijnego importu ropy naftowej. Istotnym dostawcą była także Australia, odpowiadająca niemal za 14\% importu omawianego surowca do Unii Europejskiej.
 
 \begin{figure}[hbt]
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./out_figures/fig1.png}
+    \includegraphics[width=\textwidth]{./figure_2}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
 
-  \caption[Przykładowy wykres]{Przykładowy pojedynczy wykres. \textit{Źródło:} opracowanie własne}\label{fig:przykladowy-wykres}
+  \caption[Źródła importu paliw stałych do UE w 2019 roku (w \%).]{Źródła importu paliw stałych do UE w 2019 roku (w \%). \textit{Źródło:} \cite{pangsykania2022}}\label{fig:x2}
 \end{figure}
 
-% --- chapter ---------------------------------------------------------
-\clearpage
-\section{Rzeczy podstawowe}
+Jak wynika z wykresu~\ref{fig:x2}, największym dostawcą gazu ziemnego do UE w 2019 roku była Federacja Rosyjska. Znaczącymi dostawcami tego surowca były także: Norwegia, Algieria oraz Katar. 
 
-Tutaj zawsze pojawia się krótkie streszzcenie tego co jest w tym rozdziale.
-
-\subsection{Kompilowanie plików \LaTeX}
-
-Plik  \verb+.tex+ jest zwykłym plikiem tekstowym. Plik ten zawiera treść oraz komendy formatujące \LaTeX'a.Aby otrzymać dokument w formacie \verb+.pdf+ należy skompilować plik \verb+.tex+ używając następującej sekwencji \verb+pdflatex+, \verb+biblatex+, \verb+pdflatex+, \verb+pdflatex+. Jest to typowa sekwencja często podpięta pod jeden przycisk lub skrót klawiaturowy w edytorach przystosowanych do pracy z \LaTeX'em.
-
-\subsection{Podstawowe formatowanie tekstu}
-
-Paragrafy są kodowane poprzez zostawienie pustej linii. Aby rozpocząć nowy paragraf należy zostawić pustą linię. Przykładowo:
-\begin{verbatim}
-This is the first paragraph.
-
-This is the next paragraph.
-\end{verbatim}
-
-Wszystko dotyczące paragrafu, typu wcięcia, odstępy itd. są formatowane automatycznie, nie ma potrzeby zajmowania się tym ręcznie.
-
-Podstawowe formatowanie typu: pogrubienie, italic itd. otrzymuje się komendami: \verb+\textbf{}+, \verb+\textit{}+, \verb+\underline{}+, dającymi \textbf{text}, \textit{text}, \underline{text}. Cytowanie wykonujemy przez zastosowanie \verb+\enquote{}+ co daje \enquote{efekt}.
-
-Ułożenie tekstu (podstawowe) można otrzymać używając otoczeń \verb+center+, \verb+flushleft+ i \verb+\flushright+. Przykłady:
-
-\begin{center}
-  This is centered.
-\end{center}
-
-\begin{flushleft}
-  This is aligned to the left.
-\end{flushleft}
-
-\begin{flushright}
-  This is aligned to the right.
-\end{flushright}
-
-W ramach innego otoczenia, np. \verb+table+ czy \verb+figure+ można użyć komendy \verb+\centering+.
-
-\subsection{Czcionka i jej wielkość}
-
-Technicznie można użyć prawie dowolnej czcionki i dowolnie zmienić jej wielkość. Nie robią Państwo tego.
-
-% --- chapter ---------------------------------------------------------
-\clearpage
-\section{Matematyka}
-
-Tutaj zawsze pojawia się krótkie streszzcenie tego co jest w tym rozdziale\footnote{To jest testowanie co się dzieje z rzeczami w odnośnikach dolnych. Tutaj też możemy wstawić matematykę \( x^2 - f(x) = g(x) \) aczkolwiek to nie jest zachowanie, które jest polecane. Można również wstawić URL do strony, co jest zachowaniem typowym: \url{https://tex.stackexchange.com/questions/249415/set-font-size-for-footnotes}.}.
-
-\subsection{Podstawowa matematyka}
-
-W dokumencie \LaTeX'owym mamy dwa rodzaje matematyki. Pierwszy jest wewnątrz linii a drugi jest wycentrowany. Typowy przykład dla matematyki w lini to  \( F(x) = \int_{-\infty}^{x} f(\omega) d\omega \) z kodem wyglądającym w następujący sposób: \verb!\( F(x) = \int_{-\infty}^{x} f(\omega) d\omega \)!. Matematyka wycentrowana wygląda w następujący sposób
-\[
-F(x) = \int_{-\infty}^{x} f(\omega) d\omega
-\]
-z kodem postaci
-\begin{verbatim}
-\[
-F(x) = \int_{-\infty}^{x} f(\omega) d\omega
-\]
-\end{verbatim}
-Jak Państwo widzą ten sam wzór jest składany inaczej zależnie od miejsca znajdowania się.
-
-\subsection{Odnośniki do matematyki i innych rzeczy}
-
-Aby można było odnieść się do wzoru to musi być on wycentrowany i podany wewnątrz otoczenia \verb+equation+. Wewnątrz tego otoczenia należy podać komendę \verb+\label{}+. Odnośnik do równania budujemy poprzez komendę \verb+\ref{}+. Przykład
-\begin{equation}
-\label{eq:this-is-very-important-equation}
-F(x) = \int_{-\infty}^{x} f(\omega) d\omega.
-\end{equation}
-Aby odnieść się do powyższego równania używamy komendy \verb+\ref{}+ co produkuje (\ref{eq:this-is-very-important-equation}). Para \verb+\label{}+ / \verb+\ref{}+ działa dla wsystkich rodzajów odnośników.
-
-\subsection{Nieco bardziej skomplikowane formuły}
-
-Tutaj przykład nieco bardziej skomplikowanego wzoru. Niech \( A  \) będzie macierzą
-\[
-A =
-\left(
-\begin{bmatrix}
-1                   & \alpha^2                             \\
-2                   & \sqrt{\pi} - \log(x-\sin(y))
-\end{bmatrix}^{2}
--
-\begin{bmatrix}
-1                   & f(x)                                 \\
-2                   & g(y)
-\end{bmatrix}
-\cdot
-\begin{bmatrix}
-x                                                          \\
-y
-\end{bmatrix}
-\right),
-\]
-gdzie
-\[
-f(x) =
-\left\{
-  \begin{aligned}
-    \frac{1}{x}     & \quad \text{dla \(x<-\frac{1}{2}\),} \\
-    \frac{1}{1+x^2} & \quad \text{dla \(x \geq -\frac{1}{2}\)}
-  \end{aligned}
-\right.
-\]
-oraz
-\[
-g(y) = \sin\left(\frac{\mathrm{\mathbf{E}}(X)}{\cos(y) + \log(y)}\right),
-\quad\text{gdzie \( X \sim \mathrm{N}(0, \sigma)  \).}
-\]
-
-Bardzo łatwo można składać gry w postaci normalnlej. Poniżej przykład takiej gry.
-
-\begin{game}{3}{3}
-    & $L$    & $M$    & $H$    \\
-$L$ & $16,9$ & $3,13$ & $0,3$  \\
-$M$ & $21,1$ & $10,4$ & $-1,0$ \\
-$H$ & $9,0$  & $5,-4$ & $-5,-15$
-\end{game}
-
-
-% --- chapter ---------------------------------------------------------
-\clearpage
-\section{Rysunki i tablice}
-
-Zarówno rysunki jak i tablice używają podobnej koncepcji osadzania w dokumencie. Aby osadzić tablicę używa się otoczenia  \verb+table+. Poniżej jest przykład prostej tablicy.
-
-\begin{table}[hbt]
-  \centering
-
-  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
-
-  \caption[Przykład prostej tablicy]{Przykład prostej tablicy. Ten tekst będzie automatycznie zawijany. \textit{Źródło:} opracowanie własne.}
-  \label{tab:exceptional-table}
-
-\vspace*{2ex}
-
-  \begin{tabular}{lccc}
-    Name        & property 1 & property 2 & property 3 \\ \hline
-    Michael     & 23         & 34         & --         \\
-    John        & 34         & --         & 28         \\
-    Mr. Niceguy & 123        & 231        & 312        \\ \hline
-  \end{tabular}
-\end{table}
-
-Tablica~\ref{tab:exceptional-table} jest przykładem bardzo prostej tablicy ale możliwe jest znacznie więcej rzeczy, w razie konieczność służę pomocą.
-
-Aby osadzić rysunek to w pierwszej kolejności trzeba mieć ten rysunek w pliku. W katalogu są dwa przykładowe rysunki. Następujący przykład korzysta z tych rysunków i jest przykładem wykorzystania otoczenia \verb+figure+.
+Na wykresie~\ref{fig:x3} ukazano źródła importu paliw stałych do UE w 2019 roku. Najważniejszym źródłem importu paliw stałych do UE w tym roku była Federacja Rosyjska. Istotnymi dostawcami tych surowców były również: Irak, Nigeria, Arabia Saudyjska, Kazachstan, Norwegia, Libia, USA, Wielka Brytania, Azerbejdżan i Algieria. 
 
 \begin{figure}[hbt]
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure-1}
+    \includegraphics[width=\textwidth]{./figure_3}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
 
-  \caption[Krótka nazwa X]{Przykładowy pojedynczy wykres. \textit{Źródło:} opracowanie własne}\label{fig:xxx1}
+  \caption[Źródła importu gazu ziemnego do UE w 2019 roku (w \%).]{Źródła importu gazu ziemnego do UE w 2019 roku (w \%). \textit{Źródło:} \cite{pangsykania2022}}\label{fig:x3}
 \end{figure}
+
+Ukazano także zależność energetyczną w krajach UE w 2019 roku (wykres~\ref{fig:x3}). Indykator zależności energetycznej pokazuje, w jakim stopniu dany kraj jest zależny od importu energii. Im niższy wskaźnik zależności energetycznej, tym niższy udział importowanych źródeł energii w całkowitym jej zużyciu. Jak wynika z danych zawartych na wykresie~\ref{fig:x3}, najbardziej niezależnym energetycznie krajem UE jest Estonia, dlatego że jej zależność energetyczna od importu surowców energetycznych wynosi – według stanu na 2019 rok – niespełna 5\%. Dla Polski indykator zależności energetycznej wynosi – dla analizowanego, zunifikowanego okresu porównawczego –  47\%. Dla porównania, skala zależności niemieckiej gospodarki od importu energii jest zdecydowanie wyższa i – według stanu na 2019 rok – wyniosła 67\% (\cite{pangsykania2022}).
 
 \begin{figure}[hbt]
   \centering
+
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure-1}
-    \caption{To jest pierwszy podpis. Ten podpis będzie również zawijany ale będzie to powodowało odpowiednie dopasowanie wysokości.}
-    \label{fig:xxxa}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{figure-2}
-    \caption{Układ równowag stabilnych}
-    \label{fig:xxxb}
+    \includegraphics[width=\textwidth]{./figure_4}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
 
-  \caption[Krótka nazwa II]{Przykładowy wykres. Wykresy podpisujemy, a więc ten opis znajduje się pod wykresem. \textit{Źródło:} opracowanie własne}\label{fig:xxx}
+  \caption[Indykator zależności energetycznej w krajach UE w 2019 (w \%).]{Indykator zależności energetycznej w krajach UE w 2019 (w \%). \textit{Źródło:} \cite{pangsykania2022}}\label{fig:x4}
 \end{figure}
 
-Odwołanie się do wykresu działa podobnie jak do równania: rysunek~\ref{fig:xxx1}. Możemy również odwoływać się do podwykresów:~\ref{fig:xxxa} lub \ref{fig:xxxb}. Zarówno tablice (tabele) jak i rysunki (wykresy) są automatycznie układane przez \LaTeX{} i nie pozycjinujemy ich sami.
+W okresie poprzedzającym wojnę ukraińsko-rosyjską polityka unijna ulegała zmianom w kierunku nadawania coraz większego znaczenia energii odnawialnej oraz zwiększania ekologiczności rozwiązań stosowanych w sektorze energetycznym. Jednocześnie, rozważano efektywność energetyczną, w obszarze której dążono do poprawy wydajności energetycznej, w tym poprzez oszczędność energii, jak i szeroką implementację rozwiązań energooszczędnych, a także obowiązkowe świadectwa energetyczne dla budynków, minimalne normy efektywności energetycznej dla różnych produktów, etykiety efektywności energetycznej i „inteligentne” liczniki. Po wybuchu wojny ukraińsko-rosyjskiej cele te zostały utrzymane, aczkolwiek istotnym kierunkiem stało się zwłaszcza uniezależnienie UE od surowców energetycznych z Federacji Rosyjskiej. 
 
-% --- chapter ---------------------------------------------------------
-\clearpage
-\section{Literatura}
-
-\begin{wrapfigure}{r}{.5\textwidth}
-\centering
-
-\includegraphics[width=.4\textwidth]{figure-2}
-
-\captionsetup{margin=10pt,font=small,labelfont=bf,width=.42\textwidth}
-
-  \caption[Krótki podpis]{Tak można wstawić wykres opływany tekstem. \textit{Źródło:} opracowanie własne.}\label{fig:yyy}
+Ukazanie zasobów energetycznych UE, jak również skali zależności od importu surowców, pozwala przejść do struktury i regulacji rynku energii elektrycznej w UE. 
 
 
-\end{wrapfigure}
+\subsubsection{Struktura i regulacje rynku energii elektrycznej w UE}
+
+Najważniejszym dokumentem prawnym UE regulującym wspólnotowy rynek energii elektrycznej jest Rozporządzenie Komisji (UE) 2015/1222 z dnia 24 lipca 2015 roku (\cite{ec2015}) ustanawiające wytyczne dotyczące alokacji zdolności przesyłowych i zarządzania ograniczeniami przesyłowymi, przy czym dokument ten został zaktualizowany 15 marca 2021 roku i obowiązuje w wersji skonsolidowanej, po zmianach. 
+
+Proces integracji rynku energii elektrycznej w UE zachodzi – w myśl obowiązujących rozwiązań prawnych – dwutorowo, z jednej strony za pomocą oddolnych przedsięwzięć państw członkowskich w ramach kooperacji regionalnej oraz wspierania doskonalenia połączeń transgranicznych, z drugiej dzięki formowaniu unijnych ram prawnych, które nakładają na kraje członkowskie zobowiązanie implementowania konkretnych rozwiązań tak prawnych, jak i technicznych, przyczyniających się do efektywnej integracji z rynkiem unijnym. 
+
+Unijny rynek energii elektrycznej złożony jest z następujących segmentów: rynku terminowego (Forward Market), Rynku Dnia Następnego (Day Ahead Market, RDN), Rynku Dnia Bieżącego (Intraday Market, RDB) oraz Transgranicznego rynku bilansującego (Cross-Border Balancing Market). Podstawowym rynkiem dla energii elektrycznej jest RDN. Funkcjonuje on na zasadzie: „dziś transakcja, jutro dostawa”, ponieważ zawierane na tym rynku transakcje powodują dostawę energii elektrycznej już w dniu następnym, po cenie wynegocjowanej w dniu transakcji. Istotność RDN polega także na tym, iż stanowi on punkt odniesienia dla cen energii elektrycznej w dowolnych innych kontraktach realizowanych na hurtowym rynku energii elektrycznej.
+
+Rozporządzenie Komisji (UE) nr 2015/1222 z 24 lipca 2015 r., nazywane „rozporządzeniem CACM” (\cite{ec2015}) przyczyniło się do wdrożenia Nominowanego Operatora Rynku Energii Elektrycznej (NEMO). W myśl tego rozwiązania, w we wszystkich państwach członkowskich do 14 grudnia 2015 r. musiał zostać wyznaczony co najmniej jeden NEMO do realizacji jednolitej, spójnej synchronizacji rynków dnia następnego i bieżącego dla terenu rynkowego kraju. W Polsce status NEMO otrzymała Towarowa Giełda Energii. Najważniejszym zadaniem NEMO jest zapewnienie efektywnego działania fizycznego rynku spot energii elektrycznej w skali unijnej. NEMO przyjmuje i wykonuje oferty sprzedaży oraz kupna energii elektrycznej występujące na rynkach dnia następnego i bieżącego w obrocie międzynarodowym, wykonywane w ramach koncepcji synchronizowania rynków. 
+
+W związku z dalekosiężnymi konsekwencjami pandemii, jak również kryzysem wywołanym wojną ukraińsko-rosyjską, UE adaptuje rozwiązania na rynku energii elektrycznej po to, aby zapewnić bezpieczeństwo tego rynku w całym obszarze unijnym. Najnowsze wyzwania UE w tym zakresie obejmują: redukcję zależności rachunków za energię elektryczną od krótkoterminowych cen paliw kopalnych, wspieranie rozwoju odnawialnych źródeł energii, usprawnienie funkcjonowania rynku w celu zapewnienia bezpieczeństwa dostaw oraz pełne wykorzystanie alternatyw dla gazu, takich jak magazynowanie i reakcja strony popytowej, zwiększenie ochrony i silnej pozycji konsumenta oraz udoskonalenie przejrzystości i integralności rynku oraz nadzoru nad nim sprawowanego (\cite{ec2023}). 
 
 
-Zawartość literatury znajduje się w innym pliku o nazwie \verb+refs.bib+. Mogą Państwo zmienić nazwę tego pliku ale wtedy trzeba również zmienić w tym pliku informację z \verb+\bibliography{refs}+ na \verb+\bibliography{new-name}+ gdzie \verb+new-name+ jest nazwą nowego pliku z literaturą. Załączony plik  \verb+refs.bib+ zawiera przykłady cytowań dla książek i artykułów.
+\subsubsection{Analiza kluczowych wskaźników i trendów na rynku energetycznym w UE}
 
-Sam proces cytowania jest prosty. Używa się komendy \verb+\cite{garland2010}+, która wygeneruje odpowiednie cytowanie \cite{garland2010} oraz dołączy odpowiednią informację na końcu dokumentu.Wszystko jest automatycznie sortowane i formatowane więc nie ma potrzeby zajmowania się tym ręcznie. Przykłady cytowania artykułów z wieloma autorami: \cite{benaim2003}, \cite{osborne1998}.
+W 2021 roku wyznaczono cele w zakresie wydajności energetycznej do 2030 r. do 39\% w zakresie zużycia energii pierwotnej i 36\% w obszarze zużycia energii końcowej wobec prognoz z 2007 roku. Z powodu okoliczności stworzonych przez wojnę ukraińsko-rosyjską, w 2022 roku zmodyfikowano cele w ramach wydajności energetycznej, aby dostosować politykę energetyczną do wycofania importu rosyjskich paliw kopalnych. W efekcie, zdecydowano się na redukcję zużycia energii o minimum 13\% do 2030 r. – wartości mierzonej wobec prognoz bazowych z 2007 r. (czyli w wartościach bezwzględnych do 750 mln ton ekwiwalentu ropy naftowej – Mtoe) i 980 Mtoe zużycia energii końcowej i pierwotnej w UE do 2030 r. Następnie rozpoczęto debatę nad lepszym dostosowaniem progów – wysunięto m.in. koncepcję redukcji zużycia energii pierwotnej i końcowej w UE na poziomie 40–42\% i 36–40\% (\cite{ep2023}).
 
-\begin{longtable}{rrrrr}
-\caption{Przykładowe dane}\label{tab:1}                               \\
-  \hline
- \( t\) & rok  & wybory & kryzysy & cięcia podatków                   \\ 
-  \hline
-  \endfirsthead
-  \multicolumn{5}{c}%
-{\tablename\ \thetable\ -- \textit{kontynuacja z poprzedniej strony}} \\
-\hline
-\( t\)  & rok  & wybory & kryzysy & cięcia podatków                   \\ 
-\hline
-\endhead
-\hline \multicolumn{5}{r}{\textit{kontynuowane na następnej stronie}} \\
-\endfoot
-\hline
-\endlastfoot
-  1     & 1961 & 0      & 0       & 0                                 \\ 
-  2     & 1962 & 0      & 0       & 0                                 \\ 
-  3     & 1963 & 0      & 0       & 0                                 \\ 
-  4     & 1964 & 1      & 0       & 0                                 \\ 
-  5     & 1965 & 0      & 0       & 1                                 \\ 
-  6     & 1966 & 0      & 0       & 0                                 \\ 
-  7     & 1967 & 0      & 0       & 0                                 \\ 
-  8     & 1968 & 1      & 0       & 0                                 \\ 
-  9     & 1969 & 0      & 0       & 0                                 \\ 
-  10    & 1970 & 0      & 0       & 0                                 \\ 
-  11    & 1971 & 0      & 0       & 0                                 \\ 
-  12    & 1972 & 1      & 0       & 0                                 \\ 
-  13    & 1973 & 0      & 0       & 0                                 \\ 
-  14    & 1974 & 0      & 1       & 0                                 \\ 
-  15    & 1975 & 0      & 1       & 0                                 \\ 
-  16    & 1976 & 1      & 0       & 0                                 \\ 
-  17    & 1977 & 0      & 0       & 0                                 \\ 
-  18    & 1978 & 0      & 0       & 0                                 \\ 
-  19    & 1979 & 0      & 0       & 0                                 \\ 
-  20    & 1980 & 1      & 0       & 0                                 \\ 
-  21    & 1981 & 0      & 0       & 0                                 \\ 
-  22    & 1982 & 0      & 1       & 1                                 \\ 
-  23    & 1983 & 0      & 0       & 0                                 \\ 
-  24    & 1984 & 1      & 0       & 0                                 \\ 
-  25    & 1985 & 0      & 0       & 0                                 \\ 
-  26    & 1986 & 0      & 0       & 1                                 \\ 
-  27    & 1987 & 0      & 0       & 0                                 \\ 
-  28    & 1988 & 1      & 0       & 0                                 \\ 
-  29    & 1989 & 0      & 0       & 0                                 \\ 
-  30    & 1990 & 0      & 0       & 0                                 \\ 
-  31    & 1991 & 0      & 1       & 0                                 \\ 
-  32    & 1992 & 1      & 0       & 0                                 \\ 
-  33    & 1993 & 0      & 0       & 0                                 \\ 
-  34    & 1994 & 0      & 0       & 0                                 \\ 
-  35    & 1995 & 0      & 0       & 0                                 \\ 
-  36    & 1996 & 1      & 0       & 0                                 \\ 
-  37    & 1997 & 0      & 0       & 0                                 \\ 
-  38    & 1998 & 0      & 0       & 0                                 \\ 
-  39    & 1999 & 0      & 0       & 0                                 \\ 
-  40    & 2000 & 1      & 0       & 0                                 \\ 
-  41    & 2001 & 0      & 1       & 1                                 \\ 
-  42    & 2002 & 0      & 0       & 1                                 \\ 
-  43    & 2003 & 0      & 0       & 1                                 \\ 
-  44    & 2004 & 1      & 0       & 0                                 \\ 
-  45    & 2005 & 0      & 0       & 0                                 \\ 
-  46    & 2006 & 0      & 0       & 0                                 \\ 
-  47    & 2007 & 0      & 0       & 0                                 \\ 
-  48    & 2008 & 1      & 1       & 0                                 \\ 
-  49    & 2009 & 0      & 1       & 1                                 \\ 
-  50    & 2010 & 0      & 0       & 1                                 \\ 
-  51    & 2011 & 0      & 0       & 0                                 \\ 
-  52    & 2012 & 1      & 0       & 0                                 \\ 
-  53    & 2013 & 0      & 0       & 0                                 \\ 
-  54    & 2014 & 0      & 0       & 0                                 \\ 
-  55    & 2015 & 0      & 0       & 0                                 \\ 
-   \hline
-\end{longtable}
+Nieodłącznym elementem polityki energetycznej UE pozostaje zwiększanie znaczenia surowców odnawialnych w systemie energetycznym. Wzrost roli energii odnawialnej w platformie energetycznej wspólnoty wynika w dużej mierze z aspektów ekologicznych, ale nie tylko. Występowały prognozy, w świetle których na świecie występuje ograniczoność zasobów energetycznych nieodnawialnych – i mimo że nawet te zasoby po pewnym czasie są w stanie w sprzyjających warunkach się odtwarzać – to tempo ich zużywania przez współczesną cywilizację jest zbyt szybkie, a więc w konsekwencji, po pewnym czasie energetyczne zasoby nieodnawialne uległyby wyczerpaniu. Prawdopodobnie jednak największe znaczenie nadane rozwojowi polityki zwiększającej znaczenie surowców odnawialnych wynika z tego, że surowce odnawialne są ekologiczne, a zużywanie zasobów nieodnawialnych powoduje trwałe zmiany klimatu, jednoznacznie szkodliwe dla człowieka i ekosystemów życia na planecie dla roślin i zwierząt. Jest tak, szczególnie że w najbliższym czasie skończoność surowców nieodnawialnych nie stanowiła zagrożenia bezpośredniego dla cywilizacji, a więc najważniejszy argument na rzecz surowców odnawialnych zawarł się w ich ekologiczności (\cite{ep2023}). 
+
+W odpowiedzi na zagrożenia ekologiczne i klimatyczne, UE stara się więc rozwijać energię słoneczną, wiatrową, wodną oraz inne rozwiązania z zakresu energii odnawialnej. W znacznym stopniu rozwój ten wiąże się co prawda z dywersyfikacją źródeł energii, aczkolwiek w kierunku nie tylko zmian źródeł dostaw, co modyfikacji wewnętrznej sektora energetycznego, w którym – niezależnie czy produkowana, czy też importowana energia – będzie polegała w coraz większym zakresie na surowcach odnawialnych. W 2018 roku zaplanowano, iż odnawialne źródła energii będą do 2030 roku stanowiły minimum 32\% zasobów odpowiadających za produkcję energii w UE. Zgodnie ze stanowiskiem UE, zwiększana będzie rola m.in. energii morskiej z surowców odnawialnych. 
+
+W maju 2022 roku wysunięto koncepcję aktualizacyjną, w świetle której wysunięty został pomysł, iż do 2030 roku energia ze źródeł odnawialnych wyniesie do 45\% w całym unijnym systemie energetycznym. Założono m.in. podwojenie mocy fotowoltaicznych do 2025 r. Szczególnie istotne było jednak, iż zainicjowano wtedy trwałe wycofanie rosyjskich paliw kopalnych z rynku unijnego, co stanowiło reakcję na wojnę ukraińsko-rosyjską i brak wiarygodności Federacji Rosyjskiej na arenie międzynarodowej, w tym w zakresie sektora energetycznego. Komisja rozpoczęła wówczas współpracę z partnerami międzynarodowymi w celu dywersyfikacji dostaw i zabezpieczenia importu skroplonego gazu ziemnego (LNG) i większych dostaw gazu z rurociągów od partnerów międzynarodowych. Powstała wspólnotowa platforma energetyczna, będąca dobrowolnym mechanizmem koordynacji wspierającym zakup gazu i wodoru dla UE. Wysunięto wówczas także zewnętrzną strategię energetyczną UE uwzględniającą wsparcie Ukrainy, Mołdawii, Bałkanów Zachodnich i krajów Partnerstwa Wschodniego, jak również najsłabszych partnerów UE.
+
+W maju 2022 roku pojawił się plan, który pozwolił zakończyć zależność UE od rosyjskich paliw kopalnych dzięki oszczędności energii, dywersyfikacji dostaw energii i przyspieszeniu wprowadzania energii ze źródeł odnawialnych. W czerwcu tego samego roku implementowano rozwiązania w zakresie magazynowania gazu wprowadzające obowiązki w ramach minimalnych poziomów magazynowania tego surowca. W lipcu tego samego roku wdrożono skoordynowane środki redukcji popytu na gaz, zakładające ograniczenie zużycia gazu w Europie o 15\% w stosunku do poziomu z wiosny 2023 r. Wyznaczone zostały także zasady oszczędności na czas przejścia UE z surowców rosyjskich na zasoby z innych źródeł (\cite{ep2023}). 
+
+Jak widać, powody zmian w polityce energetycznej UE wiążą się ściśle z determinantami rozwoju sektora energetycznego wspólnoty. Uwarunkowania i kierunki zmian w dużej mierze zostały wyznaczone przez konflikt ukraińsko-rosyjski, ale nie tylko. Wojna ukraińsko-rosyjska spowodowała konieczność rezygnacji przez UE z rosyjskich paliw kopalnych oraz zakończenia współpracy z Rosją w sektorze energetycznym. Mimo poważnego wyzwania dla unijnego sektora energetycznego, którym stało się uniezależnienie od zasobów rosyjskich, UE była – i jest – w stanie także prowadzić efektywną politykę energetyczną w innych obszarach, w tym uwzględniających cele strategiczne nakreślone wcześniej, takie jak walka z kryzysem klimatycznym, dywersyfikacja źródeł energii oraz rozwijanie przedsięwzięć kluczowych w ramach infrastruktury energetycznej (\cite{ep2023}). 
 
 
 
-% --- appendices ------------------------------------------------------
-\appendix
+\subsection{Wpływ pandemii COVID-19 na rynek energetyczny w krajach Unii Europejskiej}
+\subsubsection{Skutki lockdownów i ograniczeń na rynek energii elektrycznej}
 
-% ---------------------------------------------------------------------
-\clearpage
-\section{Dodatek: Ważne rzeczy do dodania}
+Dnia 17 listopada 2019 roku w chińskim mieście Wuhan wybuchła epidemia wirusa SARS-CoV-2, która stała się następnie epidemią globalną COVID-19. Ostatniego dnia grudnia 2019 roku komisja ds. zdrowia w Wuhan poinformowała o nowym wirusowym zapaleniu płuc powodowanym przez nowo odkrytego wirusa. Dnia 11  marca  2020  roku  została  ogłoszona przez Światową Organizację Zdrowia (WHO) pandemia, czego powodem były: szybkie rozprzestrzenianie się wirusa na całym świecie, liczne zachorowania i ich przyrost w szybkim tempie oraz wysokie ryzyko zgonów osób zakażonych (\cite{gorska2023}).
 
-Tutaj można włożyć długie tablice, kod wykorzystane w pracy lub inne elementy, które nie powinny zakłócać czytania tekstu.
+Tempo rozprzestrzeniania się COVID-19 było błyskawiczne – jeszcze na początku marca 2020 roku odnotowano blisko 90 tysięcy zachorowań, zwłaszcza w Chinach, podczas gdy już po trzech tygodniach według danych WHO było 415 tysięcy zarażonych w 169 krajach na świecie oraz blisko 19 tysięcy zgonów z powodu wirusa odpowiadającego za epidemię. Polski rząd wprowadził stan zagrożenia epidemicznego 13 marca 2020 roku, a stan epidemii – tydzień później, co wiązało się z implementowaniem restrykcji mających przeciwdziałać transmisji wirusa. % (\cite{wajer2023}). 
 
-\begin{landscape}
-{\footnotesize
-\begin{longtable}{lll}
-\caption{Tutaj jest tytuł tablicy}\label{tab:nowatablica1}\\
-\hline
-Nazwa atrybutu & Wartości & Opis \\ 
-\hline
-\endfirsthead
-\multicolumn{3}{c}%
-{\tablename\ \thetable\ -- \textit{kontynuacja z poprzedniej strony}} \\
-\hline
-Nazwa atrybutu & Wartości & Opis \\
-\hline
-\endhead
-\hline \multicolumn{3}{r}{\textit{kontynuowane na następnej stronie}} \\
-\endfoot
-\hline
-\endlastfoot
-chk\_acct & - & stan środków na rachunku bieżącym (jakościowa)\\ 
- & A11 & ... \textless 0 Marek Niemieckich\\  
- & A12 & 0 \textless ... \textless 200 Marek Niemieckich\\  
- & A13 & ... \textgreater 200 Marek Niemieckich\\  
- & A14 & brak rachunku bieżącego\\  
-duration & - & czas trwania kredytu w miesiącach (numeryczna)\\  
-history & - & przeszłość kredytowa (jakościowa)\\  
- & A30 & brak kredytów w historii/wszystkie kredyty poprawnie spłacone\\  
- & A31 & wszystkie kredyty poprawnie spłacone (zaciągnięte w tym banku)\\  
- & A32 & kredyty poprawnie spłacane po dzień dzisiejszy\\  
- & A33 & opóźnienia w poprzednich spłatach kredytu\\  
- & A34 & konto krytyczne/zaciągnięte kredyty w innych bankach\\  
-purpose & - & cel (jakościowa)\\  
- & A40 & nowy samochód\\  
- & A41 & używany samochód\\  
- & A42 & meble\\  
- & A43 & telewizor\\  
- & A44 & urządzenia gospodarstwa domowego\\  
- & A45 & remont\\  
- & A46 & edukacja\\  
- & A47 & wakacje\\  
- & A48 & przekwalifikowanie\\  
- & A49 & biznes\\  
- & A410 & inne\\  
-amount & - & kwota kredytu (numeryczna)\\  
-say\_acct & - & saldo na rachunku oszczędnościowym/wartość posiadanych obligacji (jakościowa)\\  
- & A61 & ... \textless100 Marek Niemieckich\\  
- & A62 & 100 \textless= ... \textless 500 Marek Niemieckich\\  
- & A63 & 500 \textless= ... \textless 1000 Marek Niemieckich\\  
- & A64 & ... \textgreater= 1000 Marek Niemieckich\\  
- & A65 & nieznane/ brak oszczędności\\  
-employment & - & czas zatrudnienia w obecnej pracy (jakościowa)\\  
- & A71 & brak zatrudnienia\\  
- & A72 & ... \textless 1 rok\\  
- & A73 & 1 \textless= ... \textless 4 lata\\  
- & A74 & 4 \textless= ... \textless 7 lat\\  
- & A75 & ... \textgreater= 7 lat\\  
-install\_rate & - & wielkość raty jako procent rozporządzalnego przychodu (liczbowa)\\  
-pstatus & - & płeć i stan cywilny (jakościowa)\\  
- & A91 & mężczyzna; rozwodnik/w separacji\\  
- & A92 & kobieta; rozwiedziona/ w separacji/ mężatka\\  
- & A93 & mężczyzna ; wolny\\  
- & A94 & mężczyzna ; żonaty/ wdowiec\\  
- & A95 & kobieta ; wolna\\  
-other\_debtor & - & inni dłużnicy/ poręczyciele (jakościowa)\\  
- & A101 & brak\\  
- & A102 & współkredytobiorca\\  
- & A103 & poręczyciel\\  
-property & - & własność/ mienie (jakościowa)\\  
- & A121 & nieruchomość\\  
- & A122 & (jeśli nie A121) umowa oszczędnościowa/ ubezpieczenie na życie\\  
- & A123 & (jeśli nie A121/A122) samochód lub inne\\  
- & A124 & nieznane\\  
-timer\_resid & - & czas zamieszkania w aktualnym miejscu zamieszkania (liczbowa)\\  
-age & - & wiek w latach (liczbowa)\\  
-other\_install & - & inne zobowiązania ratalne (jakościowa)\\  
- & A141 & bank\\  
- & A142 & sklepy\\  
- & A143 & brak\\  
-housing & - & warunki mieszkaniowe (jakościowa)\\  
- & A151 & wynajem\\  
- & A152 & własność\\  
- & A153 & zamieszkanie bez ponoszenia kosztów\\  
-other\_credits & - & liczba aktualnych kredytów w tym banku (liczbowa)\\  
-job & - & praca (jakościowa)\\  
- & A171 & bezrobotny/niewykwalifikowany; cudzoziemiec\\  
- & A172 & niewykwalifikowany; rezydent\\  
- & A173 & wykwalifikowany pracownik/urzędnik\\  
- & A174 & menadżer/ samozatrudniony/ wysocewykwalifikowany/ wyższy urzędnik\\  
-num\_depend & - & liczba osób na utrzymaniu (liczbowa)\\  
-telephone & - & telefon (jakościowa)\\  
- & A191 & brak\\  
- & A192 & tak, zarejestrowany pod nazwiskiem klienta\\  
-foreign & - & pracownik zagraniczny (jakościowa)\\  
- & A201 & tak\\  
- & A202 & nie\\  
-response & - & decyzja kredytowa\\  
- & 1 & tak\\  
- & 2 & nie\\ 
- \hline
-\end{longtable}}
-\end{landscape}
+Sektor elektroenergetyczny był tym, w którym wpływ COVID-19 wydawał się początkowo znikomy. W stosunku do marca 2019 roku, w marcu 2020 roku europejskie ceny energii elektrycznej spadły o €15/MWh, a ceny węgla – o ponad \$20/tonę. Spadło także zużycie energii – zarówno w Polsce, jak i innych krajach unijnych, jak Włochy, Hiszpania czy Niemcy. Spodziewano się już w marcu 2020 roku, że gwałtowny spadek aktywności gospodarczej modyfikujący światowy łańcuch dostaw, zredukowane wydatki na turystykę oraz podróże biznesowe, występujący okresowo deficyt zapasów, ograniczenie produkcji, zmniejszony popyt na największych rynkach oraz spodziewane lockdowny zdeterminują konsekwencje de facto we wszystkich dziedzinach, obszarach i gałęziach gospodarki, także w sektorze elektroenergetycznym. Spodziewano się m.in., że – mimo tymczasowego spadku cen energii – docelowo koszty jej pozyskania wzrosną, dlatego że nastąpi wyższa zmienność cen, motywowana niepewnością panującą na rynku. Prognozowano, że sektor elektroenergetyczny wykaże symptomy kryzysu w drugiej fali, ze względu na wpływ COVID-19 na klientów lub dostawców sektora elektroenergetycznego. % (\cite{wajer2023}). 
+
+Jeszcze w tym samym miesiącu pojawiły się głosy, iż pandemia koronawirusa wpływa na pracę zakładów przemysłowych, a w Europie spada zapotrzebowanie na energię. Spodziewane były już chwilowe przerwy w dostawach komponentów z Chin – np. do farm słonecznych, wiatrowych i samochodów elektrycznych. Poza wdrażaniem zamknięcia lub prognozowaniem zamknięcia szkół, restauracji czy kin, zamykane były także – lub prognozowano zamknięcie – zakładów pracy, w tym fabryk. Największy koncern motoryzacyjny Volkswagen zamknął czasowo fabryki w Europie, podobnie stało się w Hiszpanii z Renault, a we Francji i Hiszpanii zwiesił produkcję lotniczy Airbus. W takich okolicznościach, zapotrzebowanie na energię malało (\cite{wysokienapiecie2023}). 
+
+W czerwcu 2020 roku ograniczenia w funkcjonowaniu gospodarki, zostały wprowadzone w celu powstrzymania rozwoju pandemii, przyczyniły się do utrzymania procesu spadku zapotrzebowania na energię elektryczną. W Polsce, w początkowym okresie obostrzeń spadek ten wyniósł blisko 10\%, aczkolwiek już w czerwcu 2020 roku malał. W wielu krajach unijnych skala zmian była większa – we Włoszech w początkowym stadium pandemii odnotowano dwukrotnie niższe zapotrzebowanie na energię elektryczną. W Polsce, wraz ze spadkiem zapotrzebowania na energię, jej ceny malały. Wobec klientów prosumenckich spadek popytu na energię z sieci zaczął przyczyniać się do nowych kosztów po stronie systemu energetycznego. Malejąca liczba odbiorców, którzy ponosili opłaty dystrybucyjne oznaczała, że należało je dzielić na mniejszą liczbę podmiotów, a w efekcie – rosła jednostkowa wzrasta. Pojawiły się także nowe problemy techniczne, związane z pracą sieci. Pojawiło się wyzwanie w postaci konieczności magazynowanie energii (\cite{ure2023}).
+
+Mimo początkowych spadków cen energii i zapotrzebowania na nią, powodowanych przez pandemię oraz obostrzenia wprowadzone przeciwko niej, w dłuższym horyzoncie czasu pojawiły się problemy z niestabilnymi cenami energii. W szczególności, wzrosło ubóstwo  energetyczne,  rozumiane jako „sytuacja, w której gospodarstwo domowe lub osoba nie ma możliwości uzyskania podstawowych usług energetycznych (oświetlenie, ogrzewanie, chłodzenie, mobilność i energia elektryczna) zapewniających godny poziom życia, ze względu na połączenie niskiego dochodu, wysokich wydatków na energię i niskiej efektywności energetycznej  mieszkań” (\cite{gorska2023}). Problemem upowszechnionym stało się deficyt zasobów na utrzymanie ogrzewania na odpowiednim poziomie za uczciwą cenę (\cite{gorska2023}). 
+
+
+\subsubsection{Analiza zmian w zużyciu prądu w okresie pandemii}
+
+Średnie zapotrzebowanie na prąd w Polsce w szesnastym tygodniu 2020 roku zmniejszyło się w porównaniu do analogicznego okresu roku ubiegłego o 12,38\% (wykres~\ref{fig:x5}). W piętnastym tygodniu spadek wynosił 15,54\%. Do drugiej połowy kwietnia 2020 roku średnie zapotrzebowanie na prąd w Polsce było o 4,52\% niższe niż w analogicznym okresie 2019 roku. Po piętnastu tygodniach spadek wynosił 4,04\% (\cite{biuroanalizpfr2020}).
+
+\begin{figure}[hbt]
+  \centering
+
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{./figure_5}
+  \end{subfigure}
+
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[Zmiany zapotrzebowania na energię elektryczną (1 tydzień)]{ Zestawienie szesnastego tygodnia 2020 r. do analogicznego okresu 2019 r. w zakresie zmian zapotrzebowania na energię elektryczną. \textit{Źródło:} \cite{biuroanalizpfr2020}}\label{fig:x5}
+\end{figure}
+
+Największy spadek zapotrzebowania na energię elektryczną do drugiej połowy kwietnia 2020 roku odnotowano – w porównaniu do 2019 roku – we Włoszech (-11\%). Z drugiej strony, zarejestrowany został wzrost w Irlandii (+1\%). Dane te ukazano na wykresie~\ref{fig:x6}. 
+
+\begin{figure}[hbt]
+  \centering
+
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{./figure_6}
+  \end{subfigure}
+
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[Zmiany zapotrzebowania na energię elektryczną (16 tygodni)]{Zestawienie pierwszych szesnastu tygodni 2020 r. do analogicznego okresu 2019 r. w zakresie zmian zapotrzebowania na energię elektryczną. \textit{Źródło:} \cite{biuroanalizpfr2020}}\label{fig:x6}
+\end{figure}
+
+W czasie lockdownu w 2020 r., z powodu restrykcji ograniczających działalność gospodarczą, nastąpiła redukcja poboru energii elektrycznej na poziomie krajowego systemu elektroenergetycznego. Jakkolwiek, odmienną specyfiką wyróżniła się grupa odbiorców mieszkaniowych – w ich zakresie trendem stał się, z powodu pandemii, wzrost zużycia energii w porównaniu z okresem sprzed niej (\cite{artsmart2023}). 
+
+Konieczność relokacji aktywności zawodowych, towarzyskich oraz społecznych, a także edukacji do domów w czasie pandemii spowodowała modyfikacje w profilu użytkowania energii elektrycznej. W badaniu na informacjach pozyskanych z 7000 liczników inteligentnych zainstalowanych u odbiorców mieszkaniowych na obszarze warszawskich osiedli w budynkach wielorodzinnych powstałych po 2005 r., przy czym zarazem – danych pozyskanych od 16 marca do 18 kwietnia 2020 r. (w okresie narodowej kwarantanny) oraz od 16 marca do 18 kwietnia 2018 r. (w okresie analogicznym sprzed pandemii) okazało się, że zapotrzebowanie na energię w pandemii wzrosło, zwłaszcza w godzinach od 9.00 do 19.00, a w pozostałych godzinach generalnie utrzymywało się na podobnym poziomie, jak w okresie przed pandemią. Jednocześnie, występował stabilny poziom uśrednionej mocy szczytowej w 1-godzinnym interwale przeciętnego odbiorcy energii elektrycznej, niezależnie od tego, czy odbiorca przebywał w domu, czy też nie (\cite{artsmart2023}). 
+
+Uwzględniając i generalizując dane z całego kraju, należy powiedzieć, iż lockdown w pierwszej fazie pandemii zdecydowanie zmniejszył krajowe zużycie energii elektrycznej, ale już w swojej listopadowej odsłonie zaczął zwiększać zapotrzebowanie – przynajmniej użytkowników domowych – na energię elektryczną (\cite{kazimierska2023}).
+
+Przyrost zapotrzebowania na energię elektryczną wśród użytkowników domowych nie zrekompensował jednak spadku zapotrzebowania na energię elektryczną wśród innych użytkowników, w tym przedsiębiorstw produkcyjnych i handlowych – i tak było w całej Unii Europejskiej. W 2022 roku co prawda, mimo kryzysu energetycznego, popyt na energię elektryczną wzrósł na całym świecie blisko o 2\%. Jednak w Europie w tym czasie odnotowano zdecydowany spadek zapotrzebowania na energię elektryczną – aż o 3\%. W Europie był to bardzo wysoki spadek roczny zapotrzebowania na tę energię. Większy spadek zdarzył się tylko w czasie pandemii, w okresie 2020-2021 – uwzględniając dane od czasu kryzysu finansowego z lat 2008-2009 (\cite{maciuch2023}).  
+
+\subsubsection{Porównanie danych przedpandemicznych i okresu pandemii}
+
+Jak wynika z analizy danych obciążenia Krajowego Systemu Elektroenergetycznego zgromadzonych przez Polskie Sieci Elektroenergetyczne, uwzględniających wartości popytu na moc i jego prognozę w poszczególnych godzinach w odniesieniu do wartości tygodniowych dla dni roboczych i tygodni 11 – 22 okresu 2017 – 2019 i roku pandemicznego 2020 (przy czym tygodnie 11 – 13 przypadają na marzec, 14 – 18 na kwiecień, a 19 – 22 – na maj), w latach 2017 – 2019 zauważyć można naturalne, sukcesywne obniżanie się wartości szczytowych, będącego rezultatem sezonowych zmian zapotrzebowania na moc, natomiast w 2020 toku, w tygodniach 11 – 14 nastąpił znaczący spadek tych wartości, co wiązało się z rosnącym przyrostem zachorowań oraz implementowaniem ograniczeń w funkcjonowaniu gospodarki i społeczeństwa (\cite{stahl2021}). 
+
+Szczytowe obciążenie w marcu 2020 roku uległo redukcji średnio o ok. 1000 MW (4\%). W następnych tygodniach wartości szczytów tygodniowych były mniejsze średnio o ok. 2000 MW (9\%) względem poprzednich lat. Mimo stopniowego znoszenia restrykcji od tygodnia 19, obciążenia szczytowe nie zbliżyły się do obciążeń dla okresu porównawczego – były niższe o ok. 1200 MW (6\%). W rezultacie wprowadzonych restrykcji zamykano zakłady pracy, ograniczano ich działalność, wprowadzano przerwy i przestoje, liczne firmy zredukowały produkcję, co w następstwie powodowało zmiany zapotrzebowania na energię elektryczną. Z powodu ograniczeń z zakresu produkcji i konsumpcji, w drugim kwartale 2020 roku polska gospodarka utraciła 8\% PKB. Prawdopodobnie, występujące problemy spowodowały zredukowane zapotrzebowanie na moc w kolejnych tygodniach w porównaniu z poprzednimi latami (\cite{stahl2021}). 
+
+\begin{figure}[hbt]
+  \centering
+
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{./figure_7}
+  \end{subfigure}
+
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[Szczytowe zapotrzebowanie na moc w poszczególnych tygodniach w latach 2017-2019 oraz w roku pandemicznym 2020]{Szczytowe zapotrzebowanie na moc w poszczególnych tygodniach w latach 2017-2019 oraz w roku pandemicznym 2020 – maksymalne obciążenie oraz średni przyrost zachorowań na COVID-19. \textit{Źródło:} \cite{stahl2021}}\label{fig:x7}
+\end{figure}
+
+Na wykresie~\ref{fig:x7} ukazano szczytowe zapotrzebowanie na moc w poszczególnych tygodniach w latach 2017-2019 oraz w roku pandemicznym 2020. Dane te, maksymalne obciążenie zostały odniesione do średniego przyrostu zachorowań na COVID-19. Natomiast na wykresie~\ref{fig:x8} zaprezentowano minimalne obciążenie w tygodniach 2017 – 2019 i roku pandemicznym 2020 oraz średni przyrost zachorowań na COVID-19. 
+
+Jak wynika z zaprezentowanych danych, największa różnica między minimalnymi obciążeniami wystąpiła w tygodniu 16. W roku 2020 minimalne obciążenie było mniejsze niż w latach 2017 – 2019 średnio o ok. 500 MW (4\%).
+
+\begin{figure}[hbt]
+  \centering
+
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{./figure_8}
+  \end{subfigure}
+
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[Minimalne obciążenie w tygodniach 2017 – 2019 i 2020 roku oraz średni przyrost zachorowań na COVID-19]{Minimalne obciążenie w tygodniach 2017 – 2019 i 2020 roku oraz średni przyrost zachorowań na COVID-19. \textit{Źródło:} \cite{stahl2021}}\label{fig:x8}
+\end{figure}
+
+Z przytoczonego badania wynika także, że średnie tygodniowe obciążenia w okresie lockdownu wykazały spadek zapotrzebowania o ok. 1300 MW (7\%). W wyniku restrykcji zredukowane zostały nie tylko obciążenia szczytowe, ale także ogólny popyt na moc (\cite{stahl2021}).
+
+Mimo spadku zapotrzebowania na energię elektryczną spowodowanego przez pandemię, pandemia przyczyniła się jednocześnie do wzrostu cen energii za prąd. Wzrost ten objawia się rosnącymi na całym globie, nie tylko w Unii Europejskiej, hurtowymi cenami energii. De facto wzrost ten został zapoczątkowany w 2021 roku, a więc w drugim roku pandemicznym – w rezultacie dalekosiężnego, długofalowego i przedłużającego się negatywnego wpływu pandemii na gospodarkę i społeczeństwo. W 2022 roku rosyjska inwazja na Ukrainę oraz dynamicznie zmieniające się warunki klimatyczne zaostrzyły kryzys w sektorze energetycznym, wyłaniając kolejne czynniki wzrostu cen (\cite{council2023}). 
+
+Między grudniem 2020 r. a grudniem 2021 r. importowe ceny energii w strefie euro uległy dwukrotnemu zwiększeniu. Wzrost ten był spektakularny, zwłaszcza że importowe ceny energii, mimo ze podatne na fluktuacje, z zasady nie zmieniają się o więcej niż 3/10 w skali roku. Kryzys wywołany przez pandemię wzmocniony został przez wojnę ukraińsko-rosyjską, która wybuchła w lutym 2022 roku oraz przez falę upałów w lecie tego samego roku (\cite{council2023}). Na wykresie 7 ukazano dane z całej UE od stycznia 2021 r. do stycznia 2023 r. w zakresie cen energii u producentów przemysłowych oraz konsumpcyjnych cen energii elektrycznej, gazu i innych paliw.
+
+
+\begin{figure}[hbt]
+  \centering
+
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{./figure_9}
+  \end{subfigure}
+
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[Producenckie i konsumpcyjne ceny energii w Unii Europejskiej w okresie 2021-2023]{Producenckie i konsumpcyjne ceny energii w Unii Europejskiej w okresie 2021-2023. \textit{Źródło:} \cite{council2023}}\label{fig:x9}
+\end{figure}
+
+Jak widać na wykresie~\ref{fig:x9}, ceny energii w całej UE rosną. W 2022 roku ceny te osiągnęły rekordowy poziom. W 2023 roku nastąpił co prawda pewien spadek cen energii na obszarze unijnym, co wyniknęło z polityki unijnej w sektorze energetycznym prowadzącej do dywersyfikacji źródeł surowców energetycznych, aczkolwiek nie jest pewne, na ile tendencja hamująca ceny energii jest stała. Wartość cen energii w UE jest w 2023 roku i tak znacząco wyższa niż w 2021 roku, gdy zaczęły uwidaczniać się najpoważniejsze następstwa pandemii dla sektora energetycznego. 
+\subsection{Wpływ zmian w sektorze energetycznym spowodowanych przez pandemię COVID-19 na ekonomię w krajach UE}
+
+\subsubsection{Skutki pandemii na gospodarkę krajów UE}
+
+Na przełomie lat 2019–2020, a więc jeszcze przed ogłoszeniem pandemii, ale już w reakcji na pierwsze poważne doniesienia o spodziewanej ekspansji epidemii COVID-19, gospodarka światowa doznała spowolnienia. W miarę upływu czasu, ujemne skutki gospodarcze zaczęły, w większym lub mniejszym stopniu, obejmować dowolne kraje członkowskie Unii Europejskiej i świata.  
+
+W styczniu i lutym 2020 roku nastąpiła redukcja aktywności gospodarczej Chin w rezultacie rozprzestrzeniającego się tam COVID-19, co wywarło wpływ także na inne kraje na świecie. Nastąpił de facto szok podażowy związany z dezorganizacją funkcjonujących wówczas łańcuchów dostaw, jak również szok popytowy skorelowany zarówno ze spadkiem popytu na dobra ze strony konsumentów, jak i – z modyfikacjami planów inwestycyjnych przedsiębiorstw w związku z niepewnością dalszych uwarunkowań działania (\cite{dziembala2021}). 
+
+W miarę upływu czasu, wraz z rozprzestrzenianiem się najpierw epidemii, a następnie pandemii, nastąpiła redukcja płynności finansowej organizacji komercyjnych na całym świecie, nie tylko w UE. Pandemia spowodowała niewątpliwie pojawienie się kolejnych, rozmaitych szoków gospodarczych, w tym szoku medycznego, wynikającego z nieobecności w pracy osób chorych z powodu COVID-19. Szczególnie silny wpływ na gospodarkę miały czynności podejmowane przez rządy i inne podmioty decyzyjne w zakresie prób ograniczeń transmisji koronawirusa. Jakkolwiek, gdyby takie aktywności nie były podejmowane, pandemia mogłaby spowodować – hipotetycznie – nawet zagładę ludzkości. Gruntownym zmianom uległy postawy konsumentów oraz stanowiska przedsiębiorstw w ramach nastawienia do gospodarki – w zależności od szczegółowych uwarunkowań przebiegu pandemii, zaczęły dominować koncepcje pesymistyczne lub zachodził zwrot w kierunku optymizmu. Aktywność zarówno przedsiębiorstw, jak i konsumentów na rynku uległy generalnie zmniejszeniu. 
+
+Pandemia zaburzyła globalne łańcuchy dostaw. Wpłynęła silnie zwłaszcza na poszczególne branże, jak turystyka, gastronomia oraz usługi hotelowe, ale w związku z rozmiarem sytuacji pandemicznej, zagrożeniami przez pandemię niesionymi oraz obostrzeniami wprowadzonymi przeciwko rozprzestrzenianiu się konsekwencji pandemii, choćby pośrednio wywarła wpływ na wszystkie dziedziny życia tak ekonomicznego, jak i społeczno-kulturowego oraz gałęzie gospodarki. Pandemia przyczyniła się do utraty miejsc pracy oraz wzrostu ubóstwa. Skutki gospodarcze pandemii ujawniły się także przez wzgląd na konieczność ponoszenia przez władze państw (i władze administracji zdecentralizowanej) ogromnych wydatków na przeciwdziałanie transmisji koronawirusa. Spadające przychody firm komercyjnych korelowały w pandemii ze spadkiem ich dochodowości, co w rezultacie ograniczało możliwości inwestycyjne oraz ekspansję, jak również powodowało mniejsze wpływy podatkowe sektora publicznego (\cite{dziembala2021}).  
+
+W wyniku wprowadzonych lockdownów mających na celu powstrzymywanie transmisji wirusa, zdecydowanemu ograniczeniu uległa mobilność członków społeczeństwa. Negatywne skutki objęły kolejne branże, jak np. transportową. Mobilność członków społeczeństwa została zredukowana znacząco już w okresie od marca do maja 2020 roku, a więc na początku pandemii. Zamykane były fabryki i inne przedsiębiorstwa, następowały liczne, wydłużające się przestoje w pracy oraz produkcji, dochodziło do częstych nieobecności członków kadry pracowniczej. Panująca powszechnie niepewność i deficyty ekonomiczne przyczyniły się do spadku wydatków np. gospodarstw domowych. 
+
+Niepożądane skutki pandemii dla gospodarki ujawniły się już w danych za pierwszy kwartał 2020 roku. Wtedy gospodarka unijna uległa po raz pierwszy spowolnieniu po czasie nieprzerwanego wzrostu trwającego od blisko siedmiu lat. Ograniczenie działalności gospodarczej i pozostałe skutki pandemii przyczyniły się do pogorszenia wyników ekonomicznych jeszcze bardziej w drugim kwartale 2020 roku. Wtedy nastąpiła redukcja PKB UE o 11,9\%, a w samej strefie euro – o 12,1\% w zestawieniu do pierwszego kwartału tego samego roku, w którym i tak odnotowano spowolnienie wobec ostatniego kwartału 2019 roku (o 3,2\%), a więc w porównaniu do danych zniekształconych już przez pandemię. Oznaczało to definitywnie nasilanie się ujemnych skutków dla gospodarki unijnej. Największe spadki w drugim kwartale 2020 roku odnotowały: Hiszpania (-18,5\%), Portugalia (-14,1\%) i Francja (-13,8\%), ale wszystkie kraje unijne doznały konsekwencji gospodarczych z uwagi na sytuację pandemiczną (\cite{dziembala2021}). 
+
+Z powodu pandemii, w sposób niepożądany kształtowały się także indykatory rynku pracy. W czerwcu 2020 r. stopa bezrobocia wyniosła 7,8\% w strefie euro, a w całej UE – 7,1\%. Niepożądanymi skutkami pandemii na rynku pracy objęci zostali zwłaszcza ludzie młodzi, wśród których stopa bezrobocia wyniosła 16,8\% w UE, a w strefie euro – 17\% w lipcu 2020 roku (\cite{dziembala2021}).
+
+\subsubsection{Związki między zużyciem prądu a wskaźnikami ekonomicznymi}
+
+Spadającym w pandemii wskaźnikom ekonomicznym towarzyszyły m.in. zmiany w zakresie zużycia prądu. Korelacja ta wynikała z tego, iż redukcja indykatorów ekonomicznych była powodowana przez ograniczenia wynikłe z pandemii i obostrzeń przeciwko rozprzestrzenianiu się koronawirusa, a w warunkach słabszych rezultatów gospodarczych osiąganych w takich okolicznościach, ujawniających się za pomocą spadających wskaźników ekonomicznych, firmy zużywały mniej prądu – występowały przestoje, a nawet czasowe zamknięcia miejsc pracy i produkcji, co zmniejszało wielkość eksploatacji prądu. W 2020 roku zaobserwowana została zdecydowana redukcja wartości szczytowych zużycia prądu. O zmianach w popycie na prąd świadczyło także narastanie obciążenia w okresie szczytu popołudniowego. W 2020 roku pojawiające się zmiany w popycie na prąd stały się bardziej gwałtowne niż w okresie przed pandemią (\cite{stahl2021}). 
+
+W czerwcu 2020 roku zauważono, że wielkość zapotrzebowania na energię zależna będzie głównie od wdrożonych zaleceń zdrowotnych przeciwko koronawirusowi, czasu ich trwania oraz rygorystyczności. W zakresie wstępnych szacunków prognozowano spadek zużycia energii o około 6,0\% do końca 2020 roku, co odpowiadało łącznemu zużyciu Francji, Niemiec, Włoch oraz Wielkiej Brytanii. Tak więc, prognozowano już wtedy spadek siedmiokrotnie wyższy od spadku odnotowanego w okresie ogólnoświatowego kryzysu finansowego z 2008 roku. Tak znaczące obniżenie zapotrzebowania na energię nie miało precedensu w siedemdziesięciu latach poprzedzających wybuch pandemii (\cite{kolenda2020}). 
+
+Spadający popyt na energię w zakładach pracy był częściowo rekompensowany wzrostem zapotrzebowania na energię przez gospodarstwa domowe (\cite{cire2023}). Wzrost zapotrzebowania na energię przez gospodarstwa domowe wynikał ze zwiększenia ilości czasu spędzanego w domach przez rodziny i inne komórki społeczne – przede wszystkim był to efekt ograniczeń wprowadzonych w związku z zapobieganiem rozprzestrzenianiu się koronawirusa. Członkowie społeczeństwa więcej czasu spędzali w domach także dlatego, iż spopularyzowana została w warunkach pandemii praca w domu, za pomocą środków komunikacji na odległość – telepraca. 
+
+Ze względu na relatywnie nieduże modyfikacje ilościowej eksploatacji nośników energii w okresie 2002-2021 przez gospodarstwa domowe – z wyjątkiem jednak energii elektrycznej właśnie (wzrost o 20,9\% w całym przytoczonym okresie), a poza tym także drewna opałowego (wzrost o 26\%), zwiększenie nakładów na nośniki energii wynikało ze znacznego wzrostu cen nośników energii. Zwiększenie średnich nominalnych wydatków gospodarstwa domowego w okresie 2002–2021 wyniosło 141,8\% dla węgla kamiennego i 143,3\% dla gazu ziemnego. Najpoważniejszym czynnikiem takich wzrostów była pandemia COVID-19, ponieważ ona zdeterminowała – w skali długofalowej – zwiększenie cen paliw i surowców tak na rynkach światowych, jak i unijnym oraz krajowym. W zakresie energii elektrycznej wzrost wydatków gospodarstw domowych w okresie 2002-2021 wyniósł 129,4\% i wynikał z dwóch wiodących przyczyn: zwiększenia zapotrzebowanie gospodarstw domowych na prąd oraz wzrostu cen tego nośnika energii. Natomiast zwiększenie wydatków na ciepło wyniosło w analizowanym okresie zaledwie 29,9\%, co wyniknęło z relatywnie niewielkiego wzrostu jego realnej ceny w tym czasie (a poza tym, ze zmniejszenia zużycia ciepła przez gospodarstwa domowe dzięki aktywnościom termomodernizacyjnym) (\cite{gus2023}). 
+
+\begin{figure}[hbt]
+  \centering
+
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{./figure_10}
+  \end{subfigure}
+
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[Wzrost cen nośników energii w ujęciu nominalnym i realnym w latach 2002–2021 w Polsce.]{Wzrost cen nośników energii w ujęciu nominalnym i realnym w latach 2002–2021 w Polsce. \textit{Źródło:} \cite{gus2023}}\label{fig:x10}
+\end{figure}
+
+Na wykresie~\ref{fig:x10} ukazano wzrost cen nośników energii w ujęciu nominalnym i realnym w latach 2002–2021 w Polsce. Wzrost ten został w dużej mierze spowodowany przez pandemię, którą ogłoszono w 2020 roku. Rosnące wydatki na nośniki energii stanowiły w 2021 roku znaczące obciążenie finansowe dla wszystkich grup społeczno-ekonomicznych gospodarstw domowych i miały kluczowe znaczenie w wydatkach na użytkowanie mieszkania i nośniki energii, co – przy spadających wskaźnikach ekonomicznych w gospodarce – było szczególnie niekorzystne. 
+
+W zakresie wydatków gospodarstw domowych ogółem, istnieje możliwość spostrzeżenia od 2002 roku nieregularnego trendu wzrostowego udziału wydatków na energię. Największy wzrost odnotowano co prawda w 2011 roku – wtedy wzrost wyniósł aż 12,2\%. Jednak w latach 2012–2018 zachodziło dynamiczne redukowanie udziału wydatków na energię w łącznych wydatkach w gospodarstwach domowych – do poziomu 9,8\%. Pandemia odwróciła ten trend. W okresie 2019-2020 zauważono już ponowny wzrost udziału wydatków na energię w gospodarstwach domowych; wzrost odnotowano także w 2021 roku. Według GUS, w 2021 roku wydatki gospodarstw domowych na energię wyniosły 11,0\% ich wszystkich nakładów ekonomicznych (\cite{gus2023}). 
+
+Wskaźnik cen towarów i usług konsumpcyjnych wyniósł w 2019 roku, względem roku poprzedniego, 102,3\%. W 2020 roku wskaźnik ten w porównaniu z rokiem poprzednim wyniósł 103,4\%. W 2021 roku wzrósł ponownie i znalazł się na poziomie 105,1\%. Spektakularny wzrost wskaźnik ten odnotował w 2022 roku – wówczas wyniósł, w porównaniu do roku poprzedniego, 114,4\% (\cite{gus2023}). Jakkolwiek, w 2022 roku indykator cen towarów i usług konsumpcyjnych wynikał m.in. z sytuacji spowodowanej konfliktem zbrojnym między Ukrainą a Federacją Rosyjską, dlatego nie tylko konsekwencje pandemii stanowiły istotny czynnik wzrostu omawianego wskaźnika. Pandemia spowodowała także dalekosiężne skutki inflacyjne w innych krajach unijnych niż Polska. Jak wynika z danych Eurostatu, np. we wrześniu 2022 roku roczna inflacja w UE wzrosła do 10,9\% z 10,1\% w sierpniu, a w strefie euro – do 9,9\% z 9,1\% miesiąc wcześniej (\cite{rp2022}). Z drugiej strony, także na te dane wpływ miał już także konflikt ukraińsko-rosyjski. 
+
+W 2022 roku inflacja przyjęła najwyższe wartości od ponad 80 lat w Holandii, od ponad 70 lat w Niemczech, od ponad 30 lat we Włoszech i Francji oraz od ponad 20 lat w Turcji. Tym samym, państwa europejskie, nie tylko unijne zostały wyeksponowane – ze względu na dalekosiężne skutki pandemii oraz konflikt ukraińsko-rosyjski – na rosnące ceny dóbr, nie tylko energii (\cite{infor2022}). W związku z ciągłym zapotrzebowaniem na energię elektryczną (nawet mimo okresowych spadków popytu), jak również zwiększeniem cen tego nośnika energii, inflacja stała się tym większym zagrożeniem dla stabilności dochodów gospodarstw domowych UE. 
+
+Zużycie energii, w tym prądu, jak również wskaźniki ekonomiczne zostały przez pandemię wprowadzone w stan chaosu. W toku pierwszego lockdownu, w maju 2020 roku odnotowano w Polsce spadek zużycia prądu o 8\%, tj. o 1,2 TWh w porównaniu do maja roku poprzedniego. Jednak, już wraz z eliminowaniem obostrzeń i odradzaniem się gospodarki, występował stopniowy wzrost konsumpcji energii elektrycznej. Następny, jesienny lockdown nie wpłynął na zapotrzebowanie na energię jednoznacznie negatywnie. Pod koniec 2020 roku zużycie było nawet większe niż w analogicznym okresie w 2019 roku i wyniosło 15,3 TWh. Sytuacja ta była możliwa dzięki prężnemu działaniu branż, które w pandemii mogły się rozwijać mimo obostrzeń, a zwłaszcza – dzięki budownictwu oraz natężeniu eksportu (\cite{tygodnikprzeglad2021}). 
+
+Mimo kryzysu energetycznego, popyt na energię elektryczną wzrósł w 2022 roku na globie niemal o 2\%. Natomiast w tym samym czasie Europa zanotowała istotny spadek zapotrzebowania na prąd – aż o 3,7\%. Spadek ten był spektakularny, aczkolwiek i tak mniejszy aniżeli w roku pandemii, w latach 2020-2021 (\cite{maciuch2023}). Jednocześnie, na spadek zużycia prądu również w 2022 roku wpływ mogły mieć konsekwencje pandemii, a nie tylko wojna ukraińsko-rosyjska. 
+
+Reasumując, pogarszające się wskaźniki ekonomiczne w pandemii korelowały ze spadkiem zapotrzebowania na energię elektryczną ogółem. Mimo to, korelacja ta zawierała rozmaite zależności, dynamicznie zmieniające się. W początkowym stadium pandemia mogła nawet stanowić potencjalne źródło spadku cen energii elektrycznej. Niewątpliwie spowodowała wtedy spadek zużycia prądu. Jednak w miarę upływu czasu rosło zapotrzebowanie na prąd u użytkowników domowych, a spadło lub utrzymywało się na podobnym poziomie w sektorze przedsiębiorstw. W UE pandemia zdeterminowała niepożądane wskaźniki ekonomiczne, w tym zwiększyła inflację do niespotykanego poziomu od dekad. Na świecie mimo pandemii odnotowano wzrost zapotrzebowania na prąd. Natomiast na terenie UE pandemia zahamowała popyt na ten nośnik energii.
+
+
+\subsubsection{Analiza wpływu ograniczeń związanych z pandemią na gospodarkę i zużycie energii}
+
+Najpoważniejsze ograniczenia związane z pandemią, a więc restrykcje dotyczące czasowego zamknięcia obiektów komercyjnych lub wprowadzenia barier dla ich działalności, rekomendacje zachowania dystansu między członkami społeczeństwa, izolacja społeczna i kwarantanna, a także znaczące zredukowanie mobilności miały wpływ na gospodarkę, ale również na inne dziedziny życia i zjawiska, np. przyczyniły się do zmian zapotrzebowania na energię elektryczną.
+
+Ochrona życia i zdrowia ludzi przed zagrożeniem masowym niesionym przez koronawirusa była istotniejsza aniżeli skutki niepożądane implementowanych obostrzeń. Wprowadzono restrykcje, aby chronić zdrowie i życie członków społeczeństwa, aczkolwiek jedną ze szczególnie niepożądanych konsekwencji tego stanu stało się oddziaływanie na gospodarkę.  
+
+Wprowadzenie ograniczeń związanych z pandemią wywołało okresowe, ujemne skutki dla gospodarki. Przyczyniło się do zmian uwarunkowań transakcji zachodzących na rynku, zachęciło przedsiębiorstwa do choćby częściowej relokacji swojej oferty do sieci internetowej (nawet gdy wiązało się to z trudnościami organizacyjnymi, kompetencyjnymi i finansowymi), wyhamowało dynamikę indykatorów ekonomicznych, a nawet przyczyniło się do ich pogorszenia, zwiększyło inflację, wywołało konieczność ponoszenia znacznych nakładów przez sektor publiczny na zapobieganie skutkom pandemii i profilaktykę zagrożeń, hamowało rozwój zwłaszcza niektórych branż, dezorganizowało przepływy pieniężne i podważało wypracowane standardy w zakresie łańcuchów dostaw, zarówno lokalnych, jak i regionalnych oraz globalnych. Restrykcyjnie istotnie ograniczały działalność gospodarczą i możliwość w pełni efektywnego jej prowadzenia. Eksponowały przedsiębiorstwa na spadki przychodów i zysków. 
+
+W warunkach pandemii, z powodu wprowadzanych ograniczeń służących ochronie zdrowia i życia ludzi, następowały przestoje w pracy, tymczasowo zamykano fabryki, a także inne firmy. Pojawiło się wzmożone ryzyko utraty lub zmiany miejsca pracy. Zużycie energii elektrycznej w takich okolicznościach spadło, przynajmniej początkowo, w dobie silnych restrykcji i przystosowywania się do nowej sytuacji, w sektorze przedsiębiorstw. Jednak użytkownicy domowi zaczęli wykazywać rosnące zapotrzebowanie na energię elektryczną, co wyniknęło z wzrostu ilości czasu spędzanego w domu i popularyzacji pracy zdalnej, za pomocą środków komunikacji technologicznej. 
+
+W 2020 roku sumaryczne zapotrzebowanie na energię elektryczną było w poszczególnych miesiącach nawet niższe niż w 2019 roku. Z drugiej strony, już w 2021 roku w Polsce pojawił się trend wzrostowy zapotrzebowania na prąd, co wynikało z gwałtownego wybudzania się gospodarki po pandemicznych ograniczeniach (\cite{smyk2021}). W całej Unii Europejskiej w pandemii nastąpił spadek zapotrzebowania na energię elektryczną, ale na świecie – i tak wzrósł (\cite{maciuch2023}). 
 
 
 % --- bibliography ----------------------------------------------------

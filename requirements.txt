@@ -1,0 +1,12 @@
+csv
+glob
+numpy==1.24.3
+pandas==2.0.1
+matplotlib==3.7.2
+tbats==1.1.3
+tensorflow==2.13.0
+scikit-learn==0.24
+statsmodels.tsa.statespace.sarimax.SARIMAX==0.14.0
+
+
+
