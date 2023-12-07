@@ -434,7 +434,45 @@ Wprowadzenie ograniczeń związanych z pandemią wywołało okresowe, ujemne sku
 
 W warunkach pandemii, z powodu wprowadzanych ograniczeń służących ochronie zdrowia i życia ludzi, następowały przestoje w pracy, tymczasowo zamykano fabryki, a także inne firmy. Pojawiło się wzmożone ryzyko utraty lub zmiany miejsca pracy. Zużycie energii elektrycznej w takich okolicznościach spadło, przynajmniej początkowo, w dobie silnych restrykcji i przystosowywania się do nowej sytuacji, w sektorze przedsiębiorstw. Jednak użytkownicy domowi zaczęli wykazywać rosnące zapotrzebowanie na energię elektryczną, co wyniknęło z wzrostu ilości czasu spędzanego w domu i popularyzacji pracy zdalnej, za pomocą środków komunikacji technologicznej. 
 
-W 2020 roku sumaryczne zapotrzebowanie na energię elektryczną było w poszczególnych miesiącach nawet niższe niż w 2019 roku. Z drugiej strony, już w 2021 roku w Polsce pojawił się trend wzrostowy zapotrzebowania na prąd, co wynikało z gwałtownego wybudzania się gospodarki po pandemicznych ograniczeniach (\cite{smyk2021}). W całej Unii Europejskiej w pandemii nastąpił spadek zapotrzebowania na energię elektryczną, ale na świecie – i tak wzrósł (\cite{maciuch2023}). 
+W 2020 roku sumaryczne zapotrzebowanie na energię elektryczną było w poszczególnych miesiącach nawet niższe niż w 2019 roku. Z drugiej strony, już w 2021 roku w Polsce pojawił się trend wzrostowy zapotrzebowania na prąd, co wynikało z gwałtownego wybudzania się gospodarki po pandemicznych ograniczeniach (\cite{smyk2021}). W całej Unii Europejskiej w pandemii nastąpił spadek zapotrzebowania na energię elektryczną, ale na świecie – i tak wzrósł %(\cite{maciuch2023}). 
+
+% --- chapter ---------------------------------------------------------
+\clearpage
+
+\section{Dane i metody}
+
+\subsection{Wykorzystane dane}
+
+\subsubsection{Opis danych surowych}
+
+W niniejszej pracy wykorzystano dane dotyczące zużycia prądu w krajach Unii Europejskiej pochodzące z \textbf{<opisać źródło>}. Składały się one z dwóch plików CSV, które zostały dokładnie opisane poniżej. 
+
+\textbf{a. Plik entsoe\_country.csv}
+
+Plik CSV z separatorem w formie średnika, zawierający następujące kolumny:
+
+\begin{itemize}
+    \item \textbf{Timestamp:} Określa datę i czas pomiaru zużycia prądu,
+    \item \textbf{TotalLoad\_Forecast\_MW:} Przedstawia prognozowane zużycie prądu w megawatach,
+    \item \textbf{TotalLoad\_Actual\_MW:} Obejmuje faktyczne zużycie prądu w megawatach,
+    \item \textbf{CountryCode:} Kody krajów zgodne z normami ISO, identyfikujące poszczególne kraje.
+\end{itemize}
+
+Jest to główny plik, zawierający wszystkie dane niezbędne do wykonania przeprowadzonych w tej pracy analiz i predykcji. Poniżej przedstawiono przykładowe wartościu, po konwersji pliku na tabelę \textbf{<dodać przykładową tabelę>}. 
+
+W pliku odnotowano łącznie \textbf{X} rekordów, które stanowią dane dla następujących krajów Unii Europejskiej: Austrii, Chorwacji, Cypru, Czech, Danii, Estonii, Finlandii, Francji, Niemiec, Grecji, Węgier, Irlandii, Włoch, Łotwy, Litwy, Luksemburga, Polski, Portugalii, Rumunii, Słowacji, Słowenii, Hiszpanii i Szwecji. 
+Dla każdego z krajów zbiór danych rozpoczynają się od 2015-01-01 i kończy na 2021-08-30. Częstotliwość pomiarów różni się w zależności od kraju. W większości badanych krajów pomiary były wykonywane co godzinę, podczas gdy w czterech krajach (Austria, Węgry, Niemcy, Luksemburg) dokonywano ich co 15 minut. W dwóch krajach (Irlandia, Cypr) pomiarów dokonywano co pół godziny, natomiast w przypadku Rumunii zauważono, że występują pomiary zarówno w odstępach 60-minutowych jak i 15-minutowych. Te ostatnie, datowane na 2021-01-31 i później, zawierały błędne, powielone dane, co na etapie przygotowania danych wymagało dodatkowej agregacji. 
+
+\textbf{b. Plik entsoe\_country\_dict.csv}
+
+Plik ten jest słownikiem mapującym kody krajów na ich pełne nazwy w języku angielskim, który przedstawiono poniżej \textbf{<wczytać tabelę>}. Oryginalnie znajdował sie w formacie CSV z separatorem w formie przecinka.
+
+
+Jak widać na tabeli X, skłąda się ona z poniższych kolumn:
+\begin{itemize}
+    \item \textbf{CountryCode:} Zawiera kody krajów zgodne z normami ISO, zastosowane w pliku entsoe\_country.csv w kolumnie CountryCode,
+    \item \textbf{CountryName:} Przedstawia pełne nazwy krajów w języku angielskim odpowiadające ich kodom.
+\end{itemize}
 
 
 % --- bibliography ----------------------------------------------------
