@@ -31,6 +31,7 @@
    tabsize=3,%
    numberstyle=\footnotesize,%
    basicstyle=\ttfamily \footnotesize \color{black},%
+   keywordstyle=\ttfamily \footnotesize \color{black},%
    escapeinside={(*@}{@*)}}
 
 % --- support for links -----------------------------------------------
@@ -103,6 +104,10 @@
 }
 \makeatother
 
+\usepackage{booktabs}
+\usepackage{todonotes}
+\newcommand{\code}[1]{\lstinline{#1}}
+
 
 % ---------------------------------------------------------------------
 \begin{document}
@@ -139,7 +144,7 @@ Nr albumu: 115953
 \rule{0cm}{1cm}\hfill
 \begin{minipage}{9cm}
 Praca magisterska napisana\\
-w Katedrze Matematyki i Ekonomii Matematycznej\\
+w Instytucie Ekonomii Matematycznej\\
 pod kierunkiem naukowym\\
 dr hab. Michała Ramszy
 \end{minipage}
@@ -153,18 +158,20 @@ Warszawa 2023
 
 % --- table of contents -----------------------------------------------
 \cleardoublepage
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 
 % --- chapter ---------------------------------------------------------
 \clearpage
 
-\section{Wprowdzenie}
+\section{Wprowadzenie}
 
 \subsection{Rynek energetyczny w krajach Unii Europejskiej}
+
 \subsubsection{Charakterystyka rynku energetycznego w Unii Europejskiej}
 
-Unia Europejska dysponuje ograniczonymi zasobami surowców energetycznych. Dlatego import energii do UE stanowi konieczność – tym bardziej, że z importu Unia Europejska pokrywa więcej niż 50\% własnego zapotrzebowania na energię. Wszystkie kraje unijne są importerami netto energii. 
+Unia Europejska dysponuje ograniczonymi zasobami surowców energetycznych. Dlatego import energii do UE stanowi konieczność --- tym bardziej, że z importu Unia Europejska pokrywa więcej niż 50\% własnego zapotrzebowania na energię. Wszystkie kraje unijne są importerami netto energii. 
 
 W 2019 roku największy udział w zużyciu energii brutto w UE miały ropa naftowa i produkty ropopochodne (34,5\%), a następnie gaz ziemny (23,1\%), energia ze źródeł odnawialnych (15,8\%), energia jądrowa (13,5\%) oraz stałe paliwa kopalne (11,6\%). Największy udział stałych paliw kopalnych w krajowym zużyciu brutto występował w Polsce (46,1\%), a najmniejszy (i to mniej niż 2\%) – w Luksemburgu, na Łotwie, Cyprze, Estonii i Malcie.
 
@@ -178,7 +185,10 @@ Na wykresie~\ref{fig:x1} ukazano źródła importu ropy naftowej do UE w 2019 ro
 
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.6\textwidth]{./figure_1}
+  \includegraphics[width=0.6\textwidth]{./out_figures/figure_1}
+  
+    \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+    
   \caption[Źródła importu ropy naftowej do UE w 2019 roku (w \%)]{Źródła importu ropy naftowej do UE w 2019 roku (w \%). Źródło: \cite{pangsykania2022}}
   \label{fig:x1}
 \end{figure}
@@ -189,7 +199,7 @@ Jak zaprezentowano na wykresie~\ref{fig:x1}, Rosja była najistotniejszym dostaw
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_2}
+    \includegraphics[width=\textwidth]{./out_figures/figure_2}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -205,7 +215,7 @@ Na wykresie~\ref{fig:x3} ukazano źródła importu paliw stałych do UE w 2019 r
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_3}
+    \includegraphics[width=\textwidth]{./out_figures/figure_3}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -219,7 +229,7 @@ Ukazano także zależność energetyczną w krajach UE w 2019 roku (wykres~\ref{
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_4}
+    \includegraphics[width=\textwidth]{./out_figures/figure_4}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -285,7 +295,7 @@ Mimo początkowych spadków cen energii i zapotrzebowania na nią, powodowanych 
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_5}
+    \includegraphics[width=\textwidth]{./out_figures/figure_5}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -299,7 +309,7 @@ Największy spadek zapotrzebowania na energię elektryczną do drugiej połowy k
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_6}
+    \includegraphics[width=\textwidth]{./out_figures/figure_6}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -325,7 +335,7 @@ Szczytowe obciążenie w marcu 2020 roku uległo redukcji średnio o ok. 1000 MW
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_7}
+    \includegraphics[width=\textwidth]{./out_figures/figure_7}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -341,7 +351,7 @@ Jak wynika z zaprezentowanych danych, największa różnica między minimalnymi 
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_8}
+    \includegraphics[width=\textwidth]{./out_figures/figure_8}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -360,7 +370,7 @@ Między grudniem 2020 r. a grudniem 2021 r. importowe ceny energii w strefie eur
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_9}
+    \includegraphics[width=\textwidth]{./out_figures/figure_9}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -401,7 +411,7 @@ Ze względu na relatywnie nieduże modyfikacje ilościowej eksploatacji nośnik�
   \centering
 
   \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{./figure_10}
+    \includegraphics[width=\textwidth]{./out_figures/figure_10}
   \end{subfigure}
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -436,42 +446,70 @@ W warunkach pandemii, z powodu wprowadzanych ograniczeń służących ochronie z
 
 W 2020 roku sumaryczne zapotrzebowanie na energię elektryczną było w poszczególnych miesiącach nawet niższe niż w 2019 roku. Z drugiej strony, już w 2021 roku w Polsce pojawił się trend wzrostowy zapotrzebowania na prąd, co wynikało z gwałtownego wybudzania się gospodarki po pandemicznych ograniczeniach (\cite{smyk2021}). W całej Unii Europejskiej w pandemii nastąpił spadek zapotrzebowania na energię elektryczną, ale na świecie – i tak wzrósł %(\cite{maciuch2023}). 
 
+\subsection{Struktura pracy}
+
+\todo[inline]{Tutaj krótki opis struktury pracy, typu: w tym rozdziale to to a w tamtym to tamto.}
+
 % --- chapter ---------------------------------------------------------
 \clearpage
+\section{Wykorzystane dane}
 
-\section{Dane i metody}
+\todo[inline]{Uzupełnić o krótki wstęp.}
 
-\subsection{Wykorzystane dane}
+\subsection{Dane surowe}
 
-\subsubsection{Dane surowe}
+W niniejszej pracy wykorzystano dane dotyczące zużycia prądu w krajach Unii Europejskiej pochodzące z \url{https://www.entsoe.eu/}. Składały się one z dwóch plików CSV, które zostały dokładnie opisane poniżej. 
 
-W niniejszej pracy wykorzystano dane dotyczące zużycia prądu w krajach Unii Europejskiej pochodzące z \textbf{<opisać źródło>}. Składały się one z dwóch plików CSV, które zostały dokładnie opisane poniżej. 
-
-\textbf{a. Plik entsoe\_country.csv}
-
-Plik CSV z separatorem w formie średnika, zawierający następujące kolumny:
-
-\begin{itemize}
-    \item \textbf{Timestamp:} Określa datę i czas pomiaru zużycia prądu,
-    \item \textbf{TotalLoad\_Forecast\_MW:} Przedstawia prognozowane zużycie prądu w megawatach,
-    \item \textbf{TotalLoad\_Actual\_MW:} Obejmuje faktyczne zużycie prądu w megawatach,
-    \item \textbf{Variable:} Kody krajów zgodne z normami ISO, identyfikujące poszczególne kraje (każdy poprzedzony znacznikiem "BZN\_".
+Pierwszy z wykorzystanych plików o nazwie \code{entsoe_country.csv}. Plik ten zawiera następujące zmienne:
+\begin{itemize}[noitemsep]
+    \item \code{Timestamp}, która określa datę i czas pomiaru zużycia prądu;
+    \item \code{TotalLoad\_Forecast\_MW}, która przedstawia prognozowane zużycie prądu w megawatach;
+    \item \code{TotalLoad\_Actual\_MW}, która obejmuje faktyczne zużycie prądu w megawatach;
+    \item \code{Variable}, która zawiera kody krajów zgodne z normami ISO, identyfikujące poszczególne kraje (każdy poprzedzony znacznikiem \code{BZN_}.
 \end{itemize}
+Jest to główny plik, zawierający wszystkie dane niezbędne do wykonania przeprowadzonych w tej pracy analiz i predykcji. Poniżej przedstawiono przykładowe wartości, po konwersji pliku do ramki danych, zob.~tabela~\ref{tab:tabela1}. 
 
-Jest to główny plik, zawierający wszystkie dane niezbędne do wykonania przeprowadzonych w tej pracy analiz i predykcji. Poniżej przedstawiono przykładowe wartościu, po konwersji pliku na tabelę (tabela 1). 
+\begin{table}[hbt]
+  \centering
 
-\input{.//out\_tables//tab\_00.tex}. 
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
 
-Przed przystąpieniem do przygotowywania danych w pliku odnotowano łącznie 3 811 848 rekordów, które stanowią dane dla następujących krajów Unii Europejskiej: Austrii, Chorwacji, Cypru, Czech, Danii, Estonii, Finlandii, Francji, Niemiec, Grecji, Węgier, Irlandii, Włoch, Łotwy, Litwy, Luksemburga, Polski, Portugalii, Rumunii, Słowacji, Słowenii, Hiszpanii i Szwecji. 
+  \caption[xxx]{Przykładowe obserwację z głównego pliku z danymi. \textit{Źródło:} opracowanie własne.}
+  \label{tab:tabela1}
+  
+  \footnotesize
+
+\vspace*{2ex}
+
+\input{.//out\_tables//tab\_00.tex}
+
+\end{table}
+
+Przed przystąpieniem do przygotowywania danych w pliku odnotowano łącznie 3~811~848 rekordów, które stanowią dane dla następujących krajów Unii Europejskiej: Austrii, Chorwacji, Cypru, Czech, Danii, Estonii, Finlandii, Francji, Niemiec, Grecji, Węgier, Irlandii, Włoch, Łotwy, Litwy, Luksemburga, Polski, Portugalii, Rumunii, Słowacji, Słowenii, Hiszpanii i Szwecji. 
+
 Dla każdego z krajów zbiór danych rozpoczynają się od 2015-01-01 i kończy na 2021-08-30. Częstotliwość pomiarów różni się w zależności od kraju. W większości badanych krajów pomiary były wykonywane co godzinę, podczas gdy w czterech krajach (Austria, Węgry, Niemcy, Luksemburg) dokonywano ich co 15 minut. W dwóch krajach (Irlandia, Cypr) pomiarów dokonywano co pół godziny, natomiast w przypadku Rumunii zauważono, że występują pomiary zarówno w odstępach 60-minutowych jak i 15-minutowych. Te ostatnie, datowane na 2021-01-31 i później, zawierały błędne, powielone dane, co na etapie przygotowania danych wymagało dodatkowej agregacji. 
 
 \textbf{b. Plik entsoe\_country\_dict.csv}
 
-Plik ten jest słownikiem mapującym kody krajów na ich pełne nazwy w języku angielskim, który przedstawiono poniżej (tabela 2). Oryginalnie znajdował sie w formacie CSV z separatorem w formie przecinka.
+Plik ten jest słownikiem mapującym kody krajów na ich pełne nazwy w języku angielskim, który przedstawiono poniżej (tabela 2). Oryginalnie znajdował się w formacie CSV z separatorem w formie przecinka.
 
-\input{.//out\_tables//tab\_01.tex}. 
+\begin{table}[hbt]
+  \centering
 
-Jak jak można zaobserwować na tabeli 2, składa się ona z poniższych kolumn:
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[xxx]{xxx \textit{Źródło:} opracowanie własne.}
+  \label{tab:tabela2}
+  
+  \footnotesize
+
+\vspace*{2ex}
+
+\input{.//out\_tables//tab\_01.tex}
+
+\end{table}
+
+Jak jak można zaobserwować na tabeli~\ref{tab:tabela2}, składa się ona z poniższych kolumn:
 \begin{itemize}
     \item \textbf{CountryCode:} Zawiera kody krajów zgodne z normami ISO, zastosowane w pliku entsoe\_country.csv w kolumnie Variable,
     \item \textbf{CountryName:} Przedstawia pełne nazwy krajów w języku angielskim odpowiadające ich kodom.
@@ -479,12 +517,12 @@ Jak jak można zaobserwować na tabeli 2, składa się ona z poniższych kolumn:
 
 Plik entsoe\_country\_dict.csv został wykorzystany jedynie do mapowania nazw krajów, dlatego w dalszych częściach pracy została przedstawiona analiza danych z pliku entsoe\_country.csv.
 
-\subsubsection{Wstępne przygotowanie danych}
+\subsection{Wstępne przygotowanie danych}
 
 W ramach wstępnego przygotowania danych przeprowadzono szereg operacji w celu ujednolicenia oraz dostosowania do dalszej analizy. 
-Pierwszym krokiem było zmapowanie nazw krajów, przy czym usunięto z kodów krajów fragment "BZN\_". Ta operacja pozwoliła na zmianę nazwy kolumny z "Variable" na "Country", co umożliwiło bardziej czytelne identyfikowanie poszczególnych krajów w języku angielskim.
+Pierwszym krokiem było zmapowanie nazw krajów, przy czym usunięto z kodów krajów fragment \code{BZN\_}. Ta operacja pozwoliła na zmianę nazwy kolumny z \code{Variable} na \code{Country}, co umożliwiło bardziej czytelne identyfikowanie poszczególnych krajów w języku angielskim.
 
-Następnie, w kontekście analizy, zdecydowano się usunąć kolumnę "TotalLoad\_Forecast\_MW", gdyż jej obecność nie była istotna dla planowanych analiz.
+Następnie, w kontekście analizy, zdecydowano się usunąć kolumnę \code{TotalLoad\_Forecast\_MW}, gdyż jej obecność nie była istotna dla planowanych analiz.
 
 Kolejnym krokiem było uwzględnienie specyfiki danych dotyczących Rumunii. Od 31 stycznia 2021 roku dane dla tego kraju zaczęły być rejestrowane co 15 minut, zamiast co godzinę. Jednakże, w wyniku tego procesu nastąpiło czterokrotne powielenie odczytów godzinnych dla każdego kwadransu, co prowadziło do sztucznego czterokrotnego wzrostu wskazań zużycia energii. W celu uniknięcia tego efektu, dane dla Rumunii w tym okresie zostały zagregowane do pełnych godzin poprzez obliczenie średniej z czterech pomiarów dla każdej godziny. Ta operacja pozwoliła na zachowanie spójności danych i przygotowanie ich do dalszych analiz.
 
@@ -496,7 +534,7 @@ W tabeli 3 przedstawiono przykładowe dane po przeprowadzonych operacjach.
 
 W wyniku wstępnego przygotowania danych łączna liczba rekordów spadła z 3 811 848 do 2 161 177.
 
-\subsubsection{Braki danych}
+\subsection{Braki danych}
 
 Na 2 161 177 rekordów, odnotowano 41 902 wierszy z brakującymi danymi dotyczącymi faktycznego zużycia prądu, co stanowi 1,94\% danych. W tabeli 4 przedstawiono procentowy udział braków danych dla każdego z krajów. 
 
@@ -504,23 +542,24 @@ Na 2 161 177 rekordów, odnotowano 41 902 wierszy z brakującymi danymi dotyczą
 
 Analizując dane zamieszczone w tabeli 4 można zauważyć, że w większości państw procent pustych wartości jest nieznaczny i mieści się w przedziale od 0,00\% do 1,69\%. Wyróżniającym się krajem jest Cypr, gdzie odsetek brakujących danych wynosi aż 30,53\%.
 
-W trakcie dalszej analizy brakujących danych skupiono się na lepszym zrozumieniu ich rozkładu. Przeprowadzono analizę częstotliwości występowania okresów czasu bez danych oraz ich długości, przy zagregowaniu danych do pełnych dni. Badanie miało na celu ustalenie, czy braki te to pojedyncze przypadki, czy też skupione są w dłuższych, ciągłych okresach. W tabeli 5 przedstawiono wyniki tej analizy. 
+W trakcie dalszej analizy brakujących danych skupiono się na lepszym zrozumieniu ich rozkładu. Przeprowadzono analizę częstotliwości występowania okresów czasu bez danych oraz ich długości, przy zagregowaniu danych do pełnych dni. Badanie miało na celu ustalenie, czy braki te to pojedyncze przypadki, czy też skupione są w dłuższych, ciągłych okresach. W tabeli~\ref{tab:tabela5} na stronie \pageref{tab:tabela5} w dodatku~\ref{sec:dodatek1}, przedstawiono wyniki tej analizy. 
 
-\input{.//out\_tables//tab\_04.tex}. 
+
+
 
 Na podstawie analizy informacji dostępnych w tabeli 5 zauważono, że dla Cypru istnieje znaczący okres braków danych od 1 stycznia 2015 r. do 21 września 2016 r., obejmujący znaczną liczbę 630 dni. Ponadto, zidentyfikowano kilka krótszych przerw, takich jak okres od 8 czerwca 2019 r. do 23 lipca 2019 r. trwający 46 dni, oraz od 13 marca 2020 r. do 5 kwietnia 2020 r. trwający 24 dni. Dane te zwizualizowane na wykresie  \textbf{<naprawić wykres>} potwierdzają wyniki z analizy procentowej brakujących danych (tabela 4), podkreślając że identyfikowane okresy mogą mieć wpływ na jakość wyników modeli predykcyjnych dla Cypru.
 
-%\begin{figure}[hbt]
-%  \centering
+\begin{figure}[hbt]
+  \centering
 
-%  \begin{subfigure}[t]{0.45\textwidth}
-%    \includegraphics[width=\textwidth]{.//out\_figures//actual\_electricity\_consumption\_Cyprus}
-%  \end{subfigure}
+  \begin{subfigure}[t]{0.95\textwidth}
+    \includegraphics[width=\textwidth]{./out_figures/actual_electricity_consumption_Austria.png}
+  \end{subfigure}
 
-%  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
 
-%  \caption[Zużycie energii elektrycznej na Cyprze, w okresie od 2016-09-22 do 2021-08-30. Dane zagregowane do tygodnia.]{Wzrost cen nośników energii w ujęciu nominalnym i realnym w latach 2002–2021 w Polsce. \textit{Źródło:} opracowanie własne\label{fig:x11}
-%\end{figure}
+  \caption[Zużycie energii elektrycznej na Cyprze, w okresie od 2016-09-22 do 2021-08-30. Dane zagregowane do tygodnia.]{Wzrost cen nośników energii w ujęciu nominalnym i realnym w latach 2002–2021 w Polsce. \textit{Źródło:} opracowanie własne}\label{fig:x11}
+\end{figure}
 
 W przypadku Luksemburga zidentyfikowano dwie przerwy w odnotowywaniu pomiarów. Pierwsza trwała 2 dni, miała miejsce 3–4 stycznia 2019 r., natomiast druga trwała 7 dni, od 31 stycznia 2019 r. do 6 lutego 2019 r.
 
@@ -528,9 +567,51 @@ Również dla Rumunii rozpoznano trzy okresy braków danych: 1–5 stycznia 2015
 
 W innych analizowanych krajach występowały krótsze przerwy, trwające od 2 do 8 dni. Poznanie tych okresów jest kluczowe dla zrozumienia kontekstu danych oraz potencjalnych działań, które mogą być podjęte w celu uzupełnienia brakujących informacji.
 
-\subsubsection{Imputacja braków w danych}
+\subsection{Imputacja braków w danych}
 
 W analizie szeregów czasowych wykluczenie niekompletnych obserwacji może spowodować uszkodzenie struktur czasowych, takich jak autokorelacja, trendy i sezonowość \textbf{<Box et all, 1994, dodać do literatury + odnośnik>}, dlatego istotna jest właściwie przeprowadzona imputacja brakujących danych uwzględniająca wspomniane cechy czasowe. W ramach tego badania postanowiono zastosować uzupełnianie brakujących danych poprzez średnią z 30 poprzednich pomiarów dla analogicznego dnia tygodnia i godziny. Taka metoda umożliwi uwzględnienie zarówno zmian związanych z porą dnia i dniem tygodnia, jak również sezonowymi trendami występującymi w różnych okresach roku. Na wykresach \textbf{<wstawić wykresy + odnośniki>}.
+
+% --- chapter ---------------------------------------------------------
+\clearpage
+\section{Wykorzystane metody}\label{sec:metody}
+
+\todo[inline]{Tutaj opisujemy wykorzystane model: SARIMA, TBATS, LSTM}
+
+% --- chapter ---------------------------------------------------------
+\clearpage
+\section{Uzyskane wyniki i dyskusja}\label{sec:wyniki}
+
+\todo[inline]{Pokazujemy uzyskane wyniki (a więc oszacowane spadki zużycia energii elektrycznej) oraz różnice w tych oszacowania dla różnych modeli. Na tej podstawie dyskutujemy różnice ale również czy wpływają one na np. zmianę kolejności uporządkowania krajów jeżeli chodzi o wielkości ograniczenia zużycia. Idea jest taka aby zobaczyć, czy różnice wprowadzają zmiany jakościowe.}
+
+% --- chapter ---------------------------------------------------------
+\clearpage
+\section{Zakończenie}\label{sec:zakonczenie}
+
+\todo[inline]{Tutaj na końcu wpisujemy podsumowanie przeprowadzonego badania i podstawowych wyników.}
+
+
+
+
+% --- chapter ---------------------------------------------------------
+\appendix
+\clearpage
+\section{Dodatkowe tabele}\label{sec:dodatek1}
+
+\begin{table}[H]
+  \centering
+
+  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+
+  \caption[xxx]{xxx \textit{Źródło:} opracowanie własne.}
+  \label{tab:tabela5}
+  
+  \footnotesize
+
+\vspace*{2ex}
+
+\input{.//out\_tables//tab\_04.tex}
+
+\end{table}
 
 
 
