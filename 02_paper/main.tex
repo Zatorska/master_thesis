@@ -168,7 +168,7 @@ Warszawa 2023
 \section{Wprowadzenie}
 
 \subsection{Rynek energetyczny w krajach Unii Europejskiej}
-\todo[inline]{W końcu nie jestem pewna co we Wprowadzeniu zrobić z subsubsections: mam zostawić jak jest (nie są widoczne w spisie treści), usunąć całkowicie, czy po prostu usunąć framgent 'subsubsection' zostawiając sam podtytuł?}
+
 \subsubsection{Charakterystyka rynku energetycznego w Unii Europejskiej}
 
 Unia Europejska dysponuje ograniczonymi zasobami surowców energetycznych. Dlatego import energii do UE stanowi konieczność --- tym bardziej, że z importu Unia Europejska pokrywa więcej niż 50\% własnego zapotrzebowania na energię. Wszystkie kraje unijne są importerami netto energii. 
@@ -456,18 +456,14 @@ W warunkach pandemii, z powodu wprowadzanych ograniczeń służących ochronie z
 W 2020 roku sumaryczne zapotrzebowanie na energię elektryczną było w poszczególnych miesiącach nawet niższe niż w 2019 roku. Z drugiej strony, już w 2021 roku w Polsce pojawił się trend wzrostowy zapotrzebowania na prąd, co wynikało z gwałtownego wybudzania się gospodarki po pandemicznych ograniczeniach (\cite{smyk2021}). W całej Unii Europejskiej w pandemii nastąpił spadek zapotrzebowania na energię elektryczną, ale na świecie --- i tak wzrósł (\cite{maciuch2023}). 
 
 \subsection{Struktura pracy}
-\todo[inline]{Czy powinnam dodatkowo zformatować tytuły rozdziałów, np. pogrubieniem/zrobić odnośniki?}
-Niiniejsza praca składa się z następujących rozdziałów:
-\begin{itemize}[noitemsep]
-    \item Wykorzystane Dane, w którym przedstawiono dane surowe dotyczące zużycia prądu w krajach UE, z analizą struktury, zakresu czasowego i częstotliwości pomiarów, a także proces przetwarzania danych, eliminacji błędów i analizy brakujących danych z procedurą imputacji;
-    \item Wykorzystane Metody --- w tym rozdziale znajduje się opis trzech modeli prognostycznych wykorzystanych w badaniu (SARIMA, TBATS, LSTM) wraz z uzasadnieniem wyboru, a także szczegółowy opis implementacji, parametrów oraz strategii oceny ich skuteczności;
-    \item Uzyskane Wyniki i Dyskusja, zawierający prezentację wyników prognozowania dla każdego modelu w kontekście rzeczywistego zużycia prądu, porównanie skuteczności oraz szersza dyskusja implikacji praktycznych, ograniczeń modeli i potencjalnych obszarów dalszych badań;
-\end{itemize}
+
+Niniejsza praca składa się z następujących rozdziałów. W rozdziale \textit{\nameref{sec:dane}} przedstawiono dane surowe dotyczące zużycia prądu w krajach UE, z analizą struktury, zakresu czasowego i częstotliwości pomiarów, a także proces przetwarzania danych, eliminacji błędów i analizy brakujących danych z procedurą imputacji. W rozdziale \textit{\nameref{sec:metody}} znajduje się opis trzech modeli prognostycznych wykorzystanych w badaniu (SARIMA, TBATS, LSTM) wraz z uzasadnieniem wyboru, a także szczegółowy opis implementacji, parametrów oraz strategii oceny ich skuteczności. Rozdział \textit{\nameref{sec:wyniki}} zawiera prezentację wyników prognozowania dla każdego modelu w kontekście rzeczywistego zużycia prądu, porównanie skuteczności oraz szersza dyskusja implikacji praktycznych, ograniczeń modeli i potencjalnych obszarów dalszych badań. Całość pracy jest podsumowana w rozdziale \textit{\nameref{sec:zakonczenie}}.
+
 
 % --- chapter ---------------------------------------------------------
 \clearpage
 \section{Wykorzystane dane}\label{sec:dane}
-\todo[inline]{Zastanawiam się czy ten wstęp jest ok? Nie za bardzo powtarza informacje ze Struktury Pracy?}
+
 W tym rozdziale zaprezentowano wykorzystane dane, przedstawiono etapy ich analizy a także dokładnie opisano proces ich przetwarzania. Przedstawiono szczegółowy proces czyszczenia danych, włączając w to eliminację błędów i anomalii. Dodatkowo, skupiono się na analizie brakujących danych, omawiając strategię imputacji, która została zastosowana w celu zachowania kompletności i spójności danych przed dalszym etapem predykcji.
 
 \subsection{Dane surowe}
@@ -504,7 +500,7 @@ Przed przystąpieniem do przygotowywania danych w pliku odnotowano łącznie 3~8
 Dla każdego z krajów zbiór danych rozpoczynają się od 2015-01-01 i kończy na 2021-08-30. Częstotliwość pomiarów różni się w zależności od kraju. W większości badanych krajów pomiary były wykonywane co godzinę, podczas gdy w czterech krajach (Austria, Węgry, Niemcy, Luksemburg) dokonywano ich co 15 minut. W dwóch krajach (Irlandia, Cypr) pomiarów dokonywano co pół godziny, natomiast w przypadku Rumunii zauważono, że występują pomiary zarówno w odstępach 60-minutowych jak i 15-minutowych. Te ostatnie, datowane na 2021-01-31 i później, zawierały błędne, powielone dane, co na etapie przygotowania danych wymagało dodatkowej agregacji. 
 
 Drugi plik, \code{entsoe\_country\_dict.csv}, jest słownikiem mapującym kody krajów na ich pełne nazwy w języku angielskim, który przedstawiono  w tabeli~\ref{tab:tabela2} na stronie \pageref{tab:tabela2} w dodatku~\ref{sec:dodatek1}. Jak jak można zaobserwować, składa się on z poniższych zmiennych:
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item \code{CountryCode}, która zawiera kody krajów zgodne z normami ISO, zastosowane w pliku \code{entsoe\_country.csv} w zmiennej \code{Variable},
     \item \code{CountryName}, która przedstawia pełne nazwy krajów w języku angielskim odpowiadające ich kodom.
 \end{itemize}
@@ -514,17 +510,9 @@ Plik \code{entsoe\_country\_dict.csv} został wykorzystany jedynie do mapowania 
 \subsection{Wstępne przygotowanie danych}\label{przygotowanie-danych}
 
 W ramach wstępnego przygotowania danych przeprowadzono szereg operacji w celu ujednolicenia oraz dostosowania do dalszej analizy. 
-Pierwszym krokiem było zmapowanie nazw krajów, przy czym usunięto z kodów krajów fragment \code{BZN\_}. Ta operacja pozwoliła na zmianę nazwy kolumny z \code{Variable} na \code{Country}, co umożliwiło bardziej czytelne identyfikowanie poszczególnych krajów w języku angielskim.
+Pierwszym krokiem było zmapowanie nazw krajów, przy czym usunięto z kodów krajów fragment \code{BZN\_}. Ta operacja pozwoliła na zmianę nazwy kolumny z \code{Variable} na \code{Country}, co umożliwiło bardziej czytelne identyfikowanie poszczególnych krajów w języku angielskim. Następnie, w kontekście analizy, zdecydowano się usunąć kolumnę \code{TotalLoad\_Forecast\_MW}, gdyż jej obecność nie była istotna dla planowanych analiz.
 
-Następnie, w kontekście analizy, zdecydowano się usunąć kolumnę \code{TotalLoad\_Forecast\_MW}, gdyż jej obecność nie była istotna dla planowanych analiz.
-
-Kolejnym krokiem było uwzględnienie specyfiki danych dotyczących Rumunii. Od 31 stycznia 2021 roku dane dla tego kraju zaczęły być rejestrowane co 15 minut, zamiast co godzinę. Jednakże, w wyniku tego procesu nastąpiło czterokrotne powielenie odczytów godzinnych dla każdego kwadransu, co prowadziło do sztucznego czterokrotnego wzrostu wskazań zużycia energii. W celu uniknięcia tego efektu, dane dla Rumunii w tym okresie zostały zagregowane do pełnych godzin poprzez obliczenie średniej z czterech pomiarów dla każdej godziny. Ta operacja pozwoliła na zachowanie spójności danych i przygotowanie ich do dalszych analiz.
-
-W trakcie analizy danych zauważono, że występowały wartości zerowe w kolumnie odpowiadającej za produkcję energii \code{TotalLoad\_Actual\_MW}. Z uwagi na bardzo niskie prawdopodobieństwo rzeczywistej produkcji 0 MW energii na skalę kraju, postanowiono zamienić te wartości zerowe na \code{NaN} (brak danych). Taka modyfikacja miała na celu zminimalizowanie wpływu nieprawdziwie reprezentowanych danych na dalsze analizy oraz umożliwienie bardziej rzetelnej oceny sytuacji związanej z brakami danych.
-
-W tabeli~\ref{tab:tabela3} przedstawiono przykładowe dane uzyskane w wyniku przeprowadzonych operacji, natomiast na wykresie~\ref{fig:x11} zaprezentowano odpowiadający tym danym szereg czasowy.
-
-\begin{table}[H]
+\begin{table}[hbt]
   \centering
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -540,6 +528,12 @@ W tabeli~\ref{tab:tabela3} przedstawiono przykładowe dane uzyskane w wyniku prz
 
 \end{table}
 
+Kolejnym krokiem było uwzględnienie specyfiki danych dotyczących Rumunii. Od 31 stycznia 2021 roku dane dla tego kraju zaczęły być rejestrowane co 15 minut, zamiast co godzinę. Jednakże, w wyniku tego procesu nastąpiło czterokrotne powielenie odczytów godzinnych dla każdego kwadransu, co prowadziło do sztucznego czterokrotnego wzrostu wskazań zużycia energii. W celu uniknięcia tego efektu, dane dla Rumunii w tym okresie zostały zagregowane do pełnych godzin poprzez obliczenie średniej z czterech pomiarów dla każdej godziny. Ta operacja pozwoliła na zachowanie spójności danych i przygotowanie ich do dalszych analiz.
+
+W trakcie analizy danych zauważono, że występowały wartości zerowe w kolumnie odpowiadającej za produkcję energii \code{TotalLoad\_Actual\_MW}. Z uwagi na bardzo niskie prawdopodobieństwo rzeczywistej produkcji 0 MW energii na skalę kraju, postanowiono zamienić te wartości zerowe na \code{NaN} (brak danych). Taka modyfikacja miała na celu zminimalizowanie wpływu nieprawdziwie reprezentowanych danych na dalsze analizy oraz umożliwienie bardziej rzetelnej oceny sytuacji związanej z brakami danych.
+
+W tabeli~\ref{tab:tabela3} przedstawiono przykładowe dane uzyskane w wyniku przeprowadzonych operacji. W wyniku wstępnego przygotowania danych łączna liczba rekordów spadła z 3~811~848 do 2~161~177. Wykres~\ref{fig:x11} przedstawia wykres pełnego szeregu czasowego dla Polski, jako przykładu danych po wstępnym przetworzeniu danych. W dalszej części konieczna będzie jeszcze imputacja brakujących danych. 
+
 \begin{figure}[hbt]
   \centering
 
@@ -552,7 +546,7 @@ W tabeli~\ref{tab:tabela3} przedstawiono przykładowe dane uzyskane w wyniku prz
   \caption[Zużycie energii elektrycznej w Polsce, w okresie od 2015-01-01 do 2021-08-30. Dane zagregowane do tygodnia.]{Zużycie energii elektrycznej w Polsce, w okresie od 2015-01-01 do 2021-08-30. Dane zagregowane do tygodnia. \textit{Źródło:} opracowanie własne}\label{fig:x11}
 \end{figure}
 
-W wyniku wstępnego przygotowania danych łączna liczba rekordów spadła z 3~811~848 do 2~161~177.
+
 
 \subsection{Braki danych}
 
@@ -580,17 +574,13 @@ W trakcie dalszej analizy brakujących danych skupiono się na lepszym zrozumien
 
 Na podstawie analizy informacji dostępnych w tabeli~\ref{tab:tabela5} zauważono, że dla Cypru istnieje znaczący okres braków danych od 1 stycznia 2015 r. do 21 września 2016 r., obejmujący znaczną liczbę 630 dni. Ponadto, zidentyfikowano kilka krótszych przerw, takich jak okres od 8 czerwca 2019 r. do 23 lipca 2019 r. trwający 46 dni, oraz od 13 marca 2020 r. do 5 kwietnia 2020 r. trwający 24 dni. W związku z tym należy rozważyć, czy identyfikowane okresy występowania braków danych mogą mieć wpływ na jakość wyników modeli predykcyjnych dla Cypru.
 
-W przypadku Luksemburga zidentyfikowano dwie przerwy w odnotowywaniu pomiarów. Pierwsza trwała 2 dni, miała miejsce 3-–4 stycznia 2019 r., natomiast druga trwała 7 dni, od 31 stycznia 2019 r. do 6 lutego 2019 r.
-
-Również dla Rumunii rozpoznano trzy okresy braków danych: 1-–5 stycznia 2015 r. trwający 5 dni, 22--23 maja 2018 r. trwający 2 dni oraz 7–-9 sierpnia 2021 r. trwający 3 dni.
-
-W innych analizowanych krajach występowały krótsze przerwy, trwające od 2 do 8 dni. Poznanie tych okresów jest kluczowe dla zrozumienia kontekstu danych oraz potencjalnych działań, które mogą być podjęte w celu uzupełnienia brakujących informacji.
+W przypadku Luksemburga zidentyfikowano dwie przerwy w odnotowywaniu pomiarów. Pierwsza trwała 2 dni, miała miejsce 3--4 stycznia 2019 r., natomiast druga trwała 7 dni, od 31 stycznia 2019 r. do 6 lutego 2019 r. Również dla Rumunii rozpoznano trzy okresy braków danych: 1--5 stycznia 2015 r. trwający 5 dni, 22--23 maja 2018 r. trwający 2 dni oraz 7–-9 sierpnia 2021 r. trwający 3 dni. W innych analizowanych krajach występowały krótsze przerwy, trwające od 2 do 8 dni. Poznanie tych okresów jest kluczowe dla zrozumienia kontekstu danych oraz potencjalnych działań, które mogą być podjęte w celu uzupełnienia brakujących informacji.
 
 \subsection{Imputacja braków w danych}
 
-W analizie szeregów czasowych wykluczenie niekompletnych obserwacji może spowodować uszkodzenie struktur czasowych, takich jak autokorelacja, trendy i sezonowość (\cite{box1994}), dlatego istotna jest właściwie przeprowadzona imputacja brakujących danych uwzględniająca wspomniane cechy czasowe. 
+W analizie szeregów czasowych wykluczenie niekompletnych obserwacji może spowodować uszkodzenie struktur czasowych, takich jak autokorelacja, trendy i sezonowość \citep{box1994}, dlatego istotna jest właściwie przeprowadzona imputacja brakujących danych uwzględniająca wspomniane cechy czasowe. 
 
-W ramach tego badania postanowiono zastosować uzupełnianie brakujących danych poprzez średnią z 30 poprzednich pomiarów dla analogicznego dnia tygodnia i godziny. Taka metoda umożliwia uwzględnienie zarówno zmian związanych z porą dnia i dniem tygodnia, jak również sezonowymi trendami występującymi w różnych okresach roku. Na wykresie~\ref{fig:x12} przedstawiono szereg czasowy uwzględniający zaimputowane braki danych dotyczącego zużycia energii elektrycznej w Irlandii.
+W ramach tego badania postanowiono zastosować uzupełnianie brakujących danych poprzez średnią z 30 poprzednich pomiarów dla analogicznego dnia tygodnia i godziny. Taka metoda umożliwia uwzględnienie zarówno zmian związanych z porą dnia i dniem tygodnia, jak również sezonowymi trendami występującymi w różnych okresach roku. Na wykresie~\ref{fig:x12} przedstawiono szereg czasowy uwzględniający uzupełnione braki danych dotyczącego zużycia energii elektrycznej w Irlandii.
 
 \begin{figure}[hbt]
   \centering
@@ -642,20 +632,23 @@ W niniejszym badaniu do trenowania i testowania modeli predykcyjnych wykorzystan
 
 \end{table}
 
-Zbiór danych treningowych obejmował zakres dat od 2015-01-11 do 2019-12-29 (z wyłączeniem Cypru, dla którego zbiór treningowy zaczynał się od 2016-09-21 ze względu na znaczną ilość brakujących danych).
+Zbiór danych treningowych obejmował zakres dat od 2015-01-11 do 2019-12-29. Wyjątkiem jest tutaj Cypr, dla którego zbiór treningowy zaczynał się od 2016-09-21 ze względu na znaczną ilość brakujących danych. 
 
 % --- chapter ---------------------------------------------------------
 \clearpage
 \section{Wykorzystane metody}\label{sec:metody}
 
-Do przeprowadzenia niniejszego badania wybrano trzy modele predykcyjne mające zastosowanie w prognozowaniu szeregów czasowych: SARIMA, TBATS oraz LSTM. Ze względu na małą ilość danych (347 cotygodniowych pomiarów dla każdego kraju), zdecydowano się pominąć etap walidacji. Każdy z tych modeli, dla każdego z badanych państw, został wytrenowany i przetestowany na danych przygotowanych do tych procesów (szczegółowe etapy przygotowania danych zostały omówione w rozdziale~\ref{sec:dane}). W celu umożliwienia skutecznego porównania jakości predykcji między modelami, dla każdego wytrenowanego modelu obliczono następujące metryki: MAPE, ME, MAE, MSE i RMSE.
+Do przeprowadzenia niniejszego badania wybrano trzy modele predykcyjne mające zastosowanie w prognozowaniu szeregów czasowych: SARIMA, TBATS oraz LSTM. Ze względu na małą ilość danych (347 cotygodniowych pomiarów dla każdego kraju), zdecydowano się pominąć etap walidacji. Każdy z tych modeli, dla każdego z badanych państw, został wytrenowany i przetestowany na danych przygotowanych do tych procesów (szczegółowe etapy przygotowania danych zostały omówione w rozdziale~\ref{sec:dane}). W~celu umożliwienia skutecznego porównania jakości predykcji między modelami, dla każdego wytrenowanego modelu obliczono następujące metryki: MAPE, ME, MAE, MSE i RMSE.
 
 \subsection{SARIMA}
 
-W prognozowaniu szeregów czasowych modele ARIMA są jednymi z najczęściej używanych modeli, które dają obiecujące rezultaty (\cite{elsaraiti2021}). Modele należące do tej grupy wykorzystują proces autoregresji \code{AR} (ang. \textit{autoregressive}), proces średniej ruchomej \code{MA} (ang. \textit{moving average}) oraz proces integracji \code{I} (ang. \textit{integrated}), dzięki czemu dobrze sobie radzą z prognozowaniem szeregów czasowych. Model SARIMA (Seasonal AutoRegressive Integrated Moving Average) jest rozszerzeniem modelu ARIMA o uwzględnienie sezonowości, co dodatkowo zwiększa jego skuteczność w modelowaniu szeregów czasowych, które wykazują regularne wzorce sezonowe. 
+\todo[inline]{Dodać cytowania dotyczące modeli ARIMA i SARIMA, np. typowe podręczniki. }
 
-Przed właściwym procesem trenowania modelu wykorzystano autorską funkcję \code{sarima\_split\_best\_params\_search\_fit\_predict\_plot} do znalezienia optymalnych parametrów dla każdego z badanych krajów. Funkcja ta dzieli dane na zestawy treningowe i testowe, a następnie iteruje przez różne kombinacje parametrów modelu SARIMA, takie jak \code{p}, \code{d}, \code{q}, \code{P}, \code{D}, \code{Q}, aby znaleźć zestaw parametrów, który minimalizuje wartość kryterium informacyjnego Akaike (AIC). Jak widać w tabeli~\ref{tab:tabela8} wybrane parametry nie różnią się między krajami i wynoszą:
+W prognozowaniu szeregów czasowych modele ARIMA są jednymi z najczęściej używanych modeli, które dają obiecujące rezultaty \citep{elsaraiti2021}. Modele należące do tej grupy wykorzystują proces autoregresji \code{AR} (ang. \textit{autoregressive}), proces średniej ruchomej \code{MA} (ang. \textit{moving average}) oraz proces integracji \code{I} (ang. \textit{integrated}), dzięki czemu dobrze sobie radzą z prognozowaniem szeregów czasowych. Model SARIMA (Seasonal AutoRegressive Integrated Moving Average) jest rozszerzeniem modelu ARIMA o uwzględnienie sezonowości, co dodatkowo zwiększa jego skuteczność w modelowaniu szeregów czasowych, które wykazują regularne wzorce sezonowe. 
 
+\todo[inline]{W poniższym akapicie musi być napisane, że parametry są dobierane tylko na podstawie danego okresu czasu. W szczególności nie chcemy pisać o tym, że funkcja dzieli zbiory na treningowy i testowy. Poniższą całość proszę jeszcze przeformułować. }
+
+Przed właściwym procesem trenowania modelu wykorzystano autorską funkcję \code{sarima\_split\_best\_params\_search\_fit\_predict\_plot} do znalezienia optymalnych parametrów dla każdego z badanych krajów. Funkcja ta dzieli dane na zestawy treningowe i testowe, a następnie iteruje przez różne kombinacje parametrów modelu SARIMA: \code{p}, \code{d}, \code{q}, \code{P}, \code{D}, \code{Q} przy założone rocznej sezonowości. Optymalne parametry są wybierane na podstawie kryterium informacyjnego Akaike (AIC). Parametry nie różnią się między krajami i wynoszą:
 \begin{itemize}[noitemsep]
 	\item \code{p = 0}, co oznacza brak autoregresji (AR) w związku z czym bieżące wartości szeregu czasowego nie zależą od poprzednich;
 	\item \code{d = 1}, co mozna tłumaczyć jako różnicowanie pierwszego rzędu --- bieżące wartości są różnicowane od poprzednich w celu uzyskania stacjonarności;
@@ -665,27 +658,31 @@ Przed właściwym procesem trenowania modelu wykorzystano autorską funkcję \co
 	\item \code{Q = 1} oznacza, że bieżące wartości błędów modelu zależą od jednego poprzedniego błędu z tego samego okresu w poprzednich sezonach.
 \end{itemize}
 
+\todo[inline]{Podać tylko wyniki bez opisu i bez wyliczenia. }
+
 W modelu wykorzystano dodatkowo parametr \code{s = 52}, który jest niezmienny i odpowiada liczbie okresów w sezonie (w tym przypadku --- liczbie tygodni w roku). Powyższe opisy parametrów modelu SARIMA (Seasonal Autoregressive Integrated Moving Average) są wynikiem analizy dokumentacji tej metody w \code{statsmodels}, która stanowiła podstawę dla zrozumienia i interpretacji tych parametrów (\cite{sarimax-doc}).
 
-\begin{table}[H]
-  \centering
-
-  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
-
-  \caption[Najlepsze parametry do modelu SARIMA, wybrane za pomocą funkcji \code{sarima\_split\_best\_params\_search\_fit\_predict\_plot}.]{Najlepsze parametry do modelu SARIMA, wybrane za pomocą funkcji  \code{sarima\_split\_best\_params\_search\_fit\_predict\_plot}. \textit{Źródło:} opracowanie własne.}
-  \label{tab:tabela8}
-  
-  \footnotesize
-
-\vspace*{2ex}
-
-\input{.//out\_tables//tab\_08.tex}
-
-\end{table}
+%\begin{table}[H]
+%  \centering
+%
+%  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+%
+%  \caption[Najlepsze parametry do modelu SARIMA, wybrane za pomocą funkcji \code{sarima\_split\_best\_params\_search\_fit\_predict\_plot}.]{Najlepsze parametry do modelu SARIMA, wybrane za pomocą funkcji  \code{sarima\_split\_best\_params\_search\_fit\_predict\_plot}. \textit{Źródło:} opracowanie własne.}
+%  \label{tab:tabela8}
+%  
+%  \footnotesize
+%
+%\vspace*{2ex}
+%
+%\input{.//out\_tables//tab\_08.tex}
+%
+%\end{table}
 
 \subsection{TBATS}
 
-TBATS (Trigonometric Exponential smoothing state space model with Box-Cox transformation, ARMA errors, Trend and Seasonal components) to model, który został zaprojektowany do prognozowania szeregów czasowych z wieloma okresami sezonowymi. Stosuje się w nim transformację Boxa-Coxa do oryginalnego szeregu czasowego, a następnie modeluje go jako liniową kombinację wygładzonego wykładniczo trendu, składowej sezonowej i składowej ARMA. Składowe sezonowe są modelowane za pomocą funkcji trygonometrycznych za pośrednictwem szeregów Fouriera. Dodatkowo TBATS przeprowadza pewne dostosowania hiperparametrów (np. które z tych składników zachować, a które odrzucić) przy użyciu kryterium informacyjnego Akaikego --- AIC (\cite{tbats-doc}).
+\todo[inline]{Dodać cytowania związane z tym modele.}
+
+TBATS (Trigonometric Exponential smoothing state space model with Box-Cox transformation, ARMA errors, Trend and Seasonal components) to model, który został zaprojektowany do prognozowania szeregów czasowych z wieloma okresami sezonowymi. Stosuje się w nim transformację Boxa-Coxa do oryginalnego szeregu czasowego, a następnie modeluje go jako liniową kombinację wygładzonego wykładniczo trendu, składowej sezonowej i składowej ARMA. Składowe sezonowe są modelowane za pomocą funkcji trygonometrycznych za pośrednictwem szeregów Fouriera. Dodatkowo TBATS przeprowadza pewne dostosowania hiperparametrów (np. które z tych składników zachować, a które odrzucić) przy użyciu kryterium informacyjnego Akaikego --- AIC \citep{tbats-doc}.
 
 Podobnie jak w przypadku modelu SARIMA, przed właściwym procesem trenowania modelu wykorzystano autorską funkcję \code{tbats\_split\_best\_params\_search\_fit\_predict\_plot} do znalezienia optymalnych parametrów dla każdego z badanych państw. Funkcja ta również dzieli dane na zestawy treningowe i testowe, a w dalszym kroku iteruje przez różne kombinacje parametrów modelu TBATS, takie jak \code{seasonal_periods}, \code{use_arma_errors}, \code{use_box_cox_options}, \code{use_trend_options}, \code{n_jobs_option}, \code{use_damped_trend}, aby znaleźć zestaw parametrów, który minimalizuje wartość kryterium informacyjnego Akaike (AIC). Jak widać w tabeli~\ref{tab:tabela9} parametry \code{use_arma_errors} i \code{n_jobs_option} nie różnią się między krajami i wynoszą:
 
@@ -696,7 +693,9 @@ Podobnie jak w przypadku modelu SARIMA, przed właściwym procesem trenowania mo
 
 W modelu użyto również stałego parametru \code{s = 52}, który odpowiada liczbie okresów w sezonie, w tym przypadku reprezentującej liczbę tygodni w roku.
 
-\begin{table}[H]
+\todo[inline]{(1) Wyrzucić kolumnę dotyczącą liczby core'ów procesora. (2) Jeżeli nadal się nie mieści to obrócić nagłówki do pionu.}
+
+\begin{table}[hbt]
   \centering
 
   \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
@@ -716,35 +715,32 @@ Analizując tabelę~\ref{tab:tabela9} można zwrócić uwagę na parametry niest
 
 \subsection{LSTM}
 
-LSTM (Long Short-Term Memory) jest to rodzaj rekurencyjnej sieci neuronowej (RNN), będący zaawansowaną architekturą umożliwiającą skuteczne modelowanie długotrwałych zależności w danych sekwencyjnych. Wykorzystuje mechanizm bramek, takich jak bramki: wejściowa, wyjściowa i zapominająca, aby kontrolować przepływ informacji przez sieć, umożliwiając efektywne przechowywanie i wykorzystywanie informacji na różnych etapach sekwencji. Dzięki zdolnościom do skutecznego radzenia sobie z problemem zanikającego lub eksplodującego gradientu, LSTM jest często stosowane w zadaniach prognozowania szeregów czasowych, przetwarzania języka naturalnego i innych obszarach, gdzie kluczowe są długoterminowe zależności (\cite{geron2020}).  Decyzję o wykorzystaniu modelu LSTM jako kluczowego elementu w tej pracy badawczej podjęto, kierując się również doniesieniami Siami-Namini (\cite{siami-namini2018}), które potwierdzają znaczącą skuteczność LSTM w porównaniu do tradycyjnych algorytmów.
+LSTM (Long Short-Term Memory) jest to rodzaj rekurencyjnej sieci neuronowej (RNN), będący zaawansowaną architekturą umożliwiającą skuteczne modelowanie długotrwałych zależności w danych sekwencyjnych. Wykorzystuje mechanizm bramek, takich jak bramki: wejściowa, wyjściowa i zapominająca, aby kontrolować przepływ informacji przez sieć, umożliwiając efektywne przechowywanie i wykorzystywanie informacji na różnych etapach sekwencji. Dzięki zdolnościom do skutecznego radzenia sobie z problemem zanikającego lub eksplodującego gradientu, LSTM jest często stosowane w zadaniach prognozowania szeregów czasowych, przetwarzania języka naturalnego i innych obszarach, gdzie kluczowe są długoterminowe zależności \citep{geron2020}.  Decyzję o wykorzystaniu modelu LSTM jako kluczowego elementu w tej pracy badawczej podjęto na podstawie pracy \citep{siami-namini2018}, gdzie pokazano znaczącą skuteczność sieci LSTM w porównaniu do tradycyjnych algorytmów.
 
-Sieci neuronowe, zwłaszcza modele rekurencyjne takie jak LSTM, wymagają zmiany formatu danych na sekwencje, aby efektywnie wykorzystać ich strukturę rekurencyjną i uwzględnić zależności czasowe między wartościami. W związku z tym, przed przystąpieniem do trenowania i testowania modelu LSTM konieczny był etap dodatkowego przygotowania danych. Zastosowano autorską funkcję \code{prepare_data} przyjmującą dwa argumenty wejściowe: \code{data} z szeregiem czasowym, oraz \code{look_back} z domyślną wartością równą 10. Poniżej przedstawiono kolejne etapy przetwarzania danych w ramach tej funkcji:
-
-\begin{enumerate}[label=\arabic*.]
-	\item funkcja używa pętli for, aby iterować przez dane od początku do (długość danych minus \code{look_back}). Iteracje obejmują zakres, w którym dla każdego kroku czasowego zbierane są dane wejściowe \code{X} i odpowiadające im wartości docelowe \code{y};
-	\item dla każdego i w zakresie, \code{X.append(data[i:i + look_back])} zbiera sekwencję \code{look_back} kroków czasowych jako dane wejściowe. Oznacza to, że dla każdego punktu w czasie, tworzona jest sekwencja długości \code{look_back} obejmująca poprzednie kroki czasowe;
-	\item wartość docelowa dla danej sekwencji to wartość następnego kroku czasowego po sekwencji, zbierana za pomocą \code{y.append(data[i + look_back])};
-	\item zebrane sekwencje X i odpowiadające wartości y są konwertowane na tablice \code{numpy} za pomocą \code{np.array(X), np.array(y)};
-	\item zwracane są dwie tablice: \code{X}, która zawiera sekwencje danych wejściowych, oraz \code{y}, która zawiera odpowiadające im wartości docelowe;
+Sieci neuronowe, zwłaszcza modele rekurencyjne takie jak LSTM, wymagają zmiany formatu danych na sekwencje, aby efektywnie wykorzystać ich strukturę rekurencyjną i uwzględnić zależności czasowe między wartościami. W związku z tym, przed przystąpieniem do trenowania i testowania modelu LSTM konieczny był etap dodatkowego przygotowania danych. Zastosowano autorską funkcję \code{prepare_data} przyjmującą dwa argumenty wejściowe: \code{data} z szeregiem czasowym, oraz \code{look_back} z domyślną wartością równą 10. Poniżej przedstawiono kolejne etapy przetwarzania danych w ramach tej funkcji.
+\begin{enumerate}[label=\arabic*.,noitemsep]
+	\item Funkcja używa pętli \code{for}, aby iterować przez całość szeregu czasowego z uwzględnieniem długości okna \code{look_back}. Iteracje obejmują zakres, w którym dla każdego kroku czasowego pobierane są dane wejściowe \code{X} i odpowiadające im wartości docelowe \code{y}.
+	\item Dla każdego \code{i} w zakresie, \code{X.append(data[i:i + look_back])} pobiera sekwencję \code{look_back} kroków czasowych jako dane wejściowe. Oznacza to, że dla każdego punktu w czasie, tworzona jest sekwencja o długości \code{look_back} obejmująca poprzednie kroki czasowe.
+	\item Wartość docelowa dla danej sekwencji, to wartość następnego kroku czasowego po sekwencji, pobierana za pomocą \code{y.append(data[i + look_back])}.
+	\item Pobrane sekwencje \code{X} i odpowiadające im wartości \code{y} są konwertowane na tablice \code{numpy} za pomocą \code{np.array(X), np.array(y)}.
+	\item Ostatecznie zwracane są dwie tablice: \code{X}, która zawiera sekwencje danych wejściowych, oraz \code{y}, która zawiera odpowiadające im wartości docelowe.
 \end{enumerate}
+
+\todo[inline]{Dokładniej opisać tę topologię. Ewentualnie dać tutaj kawałek kodu definiującego tę topologię. }
 
 Topologia wykorzystanej w tym badaniu sieci neuronowej obejmuje dwie warstwy LSTM oraz jedną warstwę gęstą (Dense). Pierwsza warstwa LSTM zawiera 128 jednostek i przyjmuje wejście o kształcie \code{(look_back, 1)}. Parametr \code{return_sequences=True} oznacza, że ta warstwa LSTM zwraca pełne sekwencje zamiast jedynie ostatniego stanu. Jest to często praktykowane w przypadku stosowania wielu warstw LSTM. Druga warstwa LSTM zawiera 64 jednostki. W tym przypadku nie używa się \code{return_sequences}, co oznacza, że ta warstwa LSTM zwraca tylko ostatni stan sekwencji. Ostatnia warstwa modelu --- warstwa gęsta z jedną jednostką służy jako warstwa wyjściowa, generując prognozy.
 
-Sieć jest kompilowana z użyciem funkcji straty \code{mean_squared_error}, metryki \code{mape} (mean absolute percentage error) oraz optymalizatora \code{adam}.
-
-Średni błąd kwadratowy (MSE) jest często używany jako funkcja straty w sieciach neuronowych ze względu na kilka powodów. Po pierwsze, taka funkcja straty jest łatwa do zrozumienia i zaimplementowania, co wynika z jej silnych podstaw matematycznych, ułatwiających analizę teoretyczną i obliczeniową. Po drugie, minimalizowanie MSE prowadzi do zbieżności modelu do danych treningowych, a optymalizacja modelu w tym kierunku zmniejsza różnicę między prognozowanymi a rzeczywistymi wartościami. Po trzecie, MSE jest bardziej wrażliwe na większe błędy w prognozach, co może być korzystne w określonych sytuacjach. Ze względu na opisane powyżej cechy średniego błędu kwadratowego, podjęto decyzję o jego zastosowaniu jako funkcję straty w omawianej sieci LSTM.
-
-Średni procentowe błąd bezwzględny (MAPE) został wykorzystany jako narzędzie oceny skuteczności sieci LSTM z uwagi na jej kluczową rolę jako głównego kryterium porównawczego efektywności z pozostałymi modelami.
+Sieć jest kompilowana z użyciem funkcji straty \code{mean_squared_error}, metryki \code{mape} (mean absolute percentage error) oraz optymalizatora \code{adam}. Średni błąd kwadratowy (MSE) jest często używany jako funkcja straty w sieciach neuronowych ze względu na kilka powodów. Po pierwsze, taka funkcja straty jest łatwa do zrozumienia i zaimplementowania, co wynika z jej silnych podstaw matematycznych, ułatwiających analizę teoretyczną i obliczeniową. Po drugie, minimalizowanie MSE prowadzi do zbieżności modelu do danych treningowych, a optymalizacja modelu w tym kierunku zmniejsza różnicę między prognozowanymi a rzeczywistymi wartościami. Po trzecie, MSE jest bardziej wrażliwe na większe błędy w prognozach, co może być korzystne w określonych sytuacjach. Ze względu na opisane powyżej cechy średniego błędu kwadratowego, podjęto decyzję o jego zastosowaniu jako funkcję straty w omawianej sieci LSTM. Średni procentowe błąd bezwzględny (MAPE) został wykorzystany jako narzędzie oceny skuteczności sieci LSTM z uwagi na jej kluczową rolę jako głównego kryterium porównawczego efektywności z pozostałymi modelami.
 
 Optymalizator \code{Adam} reprezentuje adaptacyjny algorytm optymalizacji stosowany głównie do szkolenia głębokich sieci neuronowych. Opiera się na kombinacji zalet dwóch popularnych metod optymalizacyjnych, AdaGrad i RMSProp, w celu efektywnej aktualizacji wag sieci. Kluczową cechą tego optymalizatora jest adaptacyjne dostosowywanie współczynnika uczenia się dla każdego parametru na podstawie pierwszego i drugiego momentu gradientu, co umożliwia bardziej elastyczne dostosowanie i przyspiesza proces konwergencji (\cite{frackiewicz2023}).
 
-Model jest trenowany na danych treningowych przez 500 epok, z rozmiarem batcha równym 1. 
+%Model jest trenowany na danych treningowych przez 500 epok, z rozmiarem batcha równym 1. 
 
 % --- chapter ---------------------------------------------------------
 \clearpage
 \section{Uzyskane wyniki i dyskusja}\label{sec:wyniki}
 
-\todo[inline]{Pokazujemy uzyskane wyniki (a więc oszacowane spadki zużycia energii elektrycznej) oraz różnice w tych oszacowania dla różnych modeli. Na tej podstawie dyskutujemy różnice ale również czy wpływają one na np. zmianę kolejności uporządkowania krajów jeżeli chodzi o wielkości ograniczenia zużycia. Idea jest taka aby zobaczyć, czy różnice wprowadzają zmiany jakościowe. --- o to chciałabym się jeszcze raz dopytać}
+\todo[inline]{(1) Dla każdego kraju dzielimy rzeczywiste zapotrzebowanie przez prognozę (czyli prognoza jest naszym punktem odniesienia). Zapisujemy to jako procenty \(100 \cdot (1 - y/\hat{y})\). (2) Dla Polski robimy z tego wykres w okresie testowym. (3) Dla każdego kraju i każdego modelu, obliczamy minimum (jeżeli spadki już w procentach to wtedy maksimum) i z tego robimy tabelkę. (3) Dyskusja zawiera dwa aspekty: (a) w zależności od kraju i modelu oszacowanie spadku istotnie się różni. (b) następuje szybko powrót do poziomów popytu z przed pandemii (a więc spadki zbliżają się do zera). Zgodnie z tym zmieniamy poniższą dyskusję. }
 
 W tym rozdziale przedstawione zostaną główne wyniki analizy, które miały na celu zbadanie wpływu wyboru modelu prognostycznego na oszacowanie skutków pandemii COVID-19 w kontekście zużycia energii elektrycznej. Badanie obejmowało prognozy dla 23 krajów UE, uwzględniając modele SARIMA, TBATS oraz LSTM. Przedstawione wyniki mają na celu odpowiedzieć na pytanie, jak różnice w modelach wpływają na oszacowanie zmian w zużyciu energii elektrycznej, ze szczególnym uwzględnieniem okresu pandemii w porównaniu do danych sprzed tego wydarzenia. 
 
@@ -768,23 +764,25 @@ Warto zauważyć, że żadna z prognoz przedstawionych na wykresie~\ref{fig:x13}
 
 Główną metryką mającą na celu porównanie modeli użytych w tym badaniu jest średni procentowy błąd absolutny (MAPE). W tabeli~\ref{tab:tabela12} przedstawiono wyniki MAPE wytrenowanych modeli dla poszczególnych krajów. Średnie wyniki MAPE dla wszystkich krajów prezentują się następująco: 8,82 dla modeli SARIMA, 5,28 dla modeli TBATS i 31,92 dla LSTM. Metryka ta wyraża błąd prognozy jako procent wartości rzeczywistej. Im niższa wartość MAPE, tym lepsza jakość prognozy. W związku z tym, w badanej kwestii prognozy zużycia prądu elektrycznego można uznać, że skuteczność była najwyższa kolejno dla modeli TBATS, potem SARIMA, a najgorsze wyniki miały modele LSTM. 
 
-Wartości z tabeli~\ref{tab:tabela12} potwierdzają wnioski wysnute podczas analizy wykresu~\ref{fig:x13} --- najgorsza skuteczność modelu LSTM i porównywalne wyniki dla pozostałych modeli, z nieznaczną korzyścią dla TBATS. 
+\todo[inline]{Celem pracy jest pokazanie jak bardzo różnią się oszacowania spadków zapotrzebowania na moc w czasie pandemii w zależności od wykorzystanego modelu prognostycznego.}
 
-\begin{table}[H]
-  \centering
+%Wartości z tabeli~\ref{tab:tabela12} potwierdzają wnioski wysnute podczas analizy wykresu~\ref{fig:x13} --- najgorsza skuteczność modelu LSTM i porównywalne wyniki dla pozostałych modeli, z nieznaczną korzyścią dla TBATS. 
 
-  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
-
-  \caption[Wyniki MAPE dla modeli SARIMA, TBATS i LSTM dla każdego z badanych krajów.]{Wyniki MAPE dla modeli SARIMA, TBATS i LSTM dla każdego z badanych krajów. \textit{Źródło:} opracowanie własne.}
-  \label{tab:tabela12}
-  
-  \footnotesize
-
-\vspace*{2ex}
-
-\input{.//out\_tables//tab\_12.tex}
-
-\end{table}
+%\begin{table}[H]
+%  \centering
+%
+%  \captionsetup{margin=10pt,font=small,labelfont=bf,width=.8\textwidth}
+%
+%  \caption[Wyniki MAPE dla modeli SARIMA, TBATS i LSTM dla każdego z badanych krajów.]{Wyniki MAPE dla modeli SARIMA, TBATS i LSTM dla każdego z badanych krajów. \textit{Źródło:} opracowanie własne.}
+%  \label{tab:tabela12}
+%  
+%  \footnotesize
+%
+%\vspace*{2ex}
+%
+%\input{.//out\_tables//tab\_12.tex}
+%
+%\end{table}
 
 W celu dokładniejszej analizy modelu LSTM wygenerowano wykres~\ref{fig:x14} przedstawiający funkcję straty (MSE), uwzględniając dane dla Polski. W przypadku sieci neuronowych jest to istotnym wyznacznik ich efektywności. Prawidłowo wyglądający wykres funkcji straty w kontekście uczenia maszynowego zazwyczaj przedstawia kilka charakterystycznych cech:
 
