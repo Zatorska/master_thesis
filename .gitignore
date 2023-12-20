@@ -13,3 +13,4 @@
 *.out
 *.fls
 *.fdb_latexmk
+.vscode/
